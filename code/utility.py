@@ -45,9 +45,9 @@ def load_data(data_path):
         points.insert(0, "filenames", str(filename))
 
         if str(filename).endswith(pos_suffix):
-          pos_rectangles = pos_rectangles.append(points)
+          pos_rectangles = pos_rectangles.append(points, ignore_index=True)
         else:
-          neg_rectangles = neg_rectangles.append(points)
+          neg_rectangles = neg_rectangles.append(points, ignore_index=True)
 
   return images, pos_rectangles, neg_rectangles
 
@@ -58,7 +58,9 @@ def test():
   x, y, z = load_data(path)
   print(y)
   print(z)
+  print(x)
   for i, j in x.iterrows():
     plot(j["images"], j["filenames"])
+
 
 test()
