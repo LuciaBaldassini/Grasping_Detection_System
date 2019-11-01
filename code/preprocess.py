@@ -6,7 +6,33 @@ import pandas as pd
 from utility import load_data, plot
 
 
+def angle_with_horizontal(v1):
+    """
+    Returns the angle in radians between vectors 'v1' and the horizontal
+
+    Args:
+        v1 (np.ndarray): Vector for which we want to calculate the angle.
+
+    Returns:
+        (float): The angle in radians between vector v1 and the horizontal
+    """
+    v2 = np.asarray([1, 0])
+    cosang = np.dot(v1, v2)
+    sinang = np.linalg.norm(np.cross(v1, v2))
+    return np.arctan2(sinang, cosang)
+
+
 def to_four_points(rectangles):
+    """
+    Transforms a 5 dimensional representation to the 4 vertices of a rectangle. Useful for ploting the rectangle on
+    top of an image.
+
+    Args:
+        rectangles(pd.DataFrame): Dataframe with all the rectangles that we want to convert. Each row is a rectangle.
+
+    Returns:
+        (pd.DataFrame): Dataframe with the rectangles converted. Each row contains the four vertices.
+    """
     df = pd.DataFrame(columns=["filenames", "p1", "p2", "p3", "p4"])
     for _, row_values in rectangles.iterrows():
         filename, center_x, center_y, w, h, angle = row_values
@@ -19,13 +45,27 @@ def to_four_points(rectangles):
         p2 = p0 + v1 - v2
         p3 = p0 + v1 + v2
         p4 = p0 - v1 + v2
-        new_row = [filename, p1, p2, p3, p4]
+        new_row = [filename,
+                   np.round(p1).astype(int),
+                   np.round(p2).astype(int),
+                   np.round(p3).astype(int),
+                   np.round(p4).astype(int)]
         df.loc[len(df)] = new_row
 
     return df
 
 
 def to_five_dimensional(corner_points):
+    """
+    Transforms the input data read from the load_data function and converts the data points to rectangles in a 5
+    dimensional representation.
+
+    Args:
+        corner_points(pd.DataFrame): The dataframe that is output from the load_data function.
+
+    Returns:
+        (pd.DataFrame): A DataFrame containing all the rectangles in a 5 dimensional representation. Each row is a rectangle.
+    """
     df = pd.DataFrame(columns=['filenames', 'center_x', 'center_y', 'width', 'height', 'angle'])
     for filename in corner_points.filenames.unique():
         points = corner_points[corner_points["filenames"] == filename]
@@ -39,26 +79,35 @@ def to_five_dimensional(corner_points):
             w = euclidean(p1, p2)
             h = euclidean(p2, p3)
             v_diag = p3 - p1  # the vector representing the diagonal
-            # v_diag = (v_diag / np.linalg.norm(v_diag)) * 0.5 * euclidean(p1, p3)
             center = p1 + v_diag / 2
-            angle = np.arcsin((p2[1] - p1[1]) / w)
-            # degrees = np.rad2deg(angle)  # DEBUG only
+            angle = angle_with_horizontal((p2 - p1))
             new_row = [filename, center[0], center[1], w, h, angle]
             df.loc[len(df)] = new_row
     return df
 
 
 def test():
+    """
+    Plots the rectangles on top of the image. To see if the 5-D transformation works well.
+    Returns:
+
+    """
     path = "../debug_dataset"  # Only add a couple of pictures to this path
     images, pos_rectangles, neg_rectangles = load_data(path)
     pos_rectangles = to_five_dimensional(pos_rectangles)
     df = to_four_points(pos_rectangles)
     for i, j in images.iterrows():
-        rectangles = df[df["filenames"] == j["filenames"]]
+        rectangles = df[df.filenames == j["filenames"]]
         plot(j["images"], j["filenames"], rectangles)
 
 
 def test_without_changes():
+    """
+    Plots the rectangles on top of the image, without converting to a 5-D representation. Useful only for debugging
+    of the 5-D transform
+    Returns:
+
+    """
     path = "../debug_dataset"  # Only add a couple of pictures to this path
     images, pos_rectangles, neg_rectangles = load_data(path)
     df = pd.DataFrame(columns=["filenames", "p1", "p2", "p3", "p4"])
@@ -70,7 +119,10 @@ def test_without_changes():
             x2, y2 = points.iloc[i + 1][0], points.iloc[i + 1][1]
             x3, y3 = points.iloc[i + 2][0], points.iloc[i + 2][1]
             x4, y4 = points.iloc[i + 3][0], points.iloc[i + 3][1]
-            new_row = [filename, np.asarray([x1, y1]), np.asarray([x2, y2]), np.asarray([x3, y3]), np.asarray([x4, y4])]
+            new_row = [filename, np.asarray([int(x1), int(y1)]),
+                       np.asarray([int(x2), int(y2)]),
+                       np.asarray([int(x3), int(y3)]),
+                       np.asarray([int(x4), int(y4)])]
             df.loc[len(df)] = new_row
     print(df)
     for i, j in images.iterrows():
@@ -79,5 +131,5 @@ def test_without_changes():
 
 
 if __name__ == "__main__":
-    test_without_changes()
+    # test_without_changes()
     test()

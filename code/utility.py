@@ -2,7 +2,7 @@ import cv2 as cv
 import pandas as pd
 import os
 
-COLORS = {"green": (0, 255, 0), "gray": (120, 120, 120)}
+COLORS = {"green": (0, 255, 0), "gray": (120, 120, 120), "red": (0, 0, 255), "blue": (255, 0, 0)}
 
 
 def plot(image, image_name, rectangles=None):
@@ -14,7 +14,6 @@ def plot(image, image_name, rectangles=None):
             cv.line(image, tuple(p2.tolist()), tuple(p3.tolist()), COLORS["green"])
             cv.line(image, tuple(p3.tolist()), tuple(p4.tolist()), COLORS["gray"])
             cv.line(image, tuple(p4.tolist()), tuple(p1.tolist()), COLORS["green"])
-            cv.line(image, (0, 0,), (10, 10), (255, 0, 0))
     cv.imshow(image_name, image)
     cv.waitKey(0)
     cv.destroyWindow(image_name)
