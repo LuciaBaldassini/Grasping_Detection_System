@@ -6,8 +6,19 @@ import pandas as pd
 from utility import load_data, plot
 
 
-def to_four_points():
-    pass
+def to_four_points(center_x, center_y, w, h, angle):
+    # TODO: make it so it will take a dataframe of rectangles, and output another dataframe of rectangles (size
+    #  8+filename).
+    v = [(w / 2) * np.cos(angle), (w / 2) * np.sin(angle)]
+    v_orth = [-v[1], v[0]]
+    v1 = (v / np.linalg.norm(v)) * (w / 2)
+    v2 = (v_orth / np.linalg.norm(v_orth)) * (h / 2)
+    p0 = np.asarray((center_x, center_y))
+    p1 = p0 - v1 - v2
+    p2 = p0 + v1 - v2
+    p3 = p0 + v1 + v2
+    p4 = p0 - v1 + v2
+    return p1, p2, p3, p4
 
 
 def to_five_dimensional(corner_points):
@@ -15,7 +26,8 @@ def to_five_dimensional(corner_points):
     rectangle_list = []
     for filename in corner_points.filenames.unique():
         points = corner_points[corner_points["filenames"] == filename]
-        del points["filenames"]
+        # del points["filenames"]
+        points = points.loc[:, ['x', 'y']]
         # points = points.to_numpy(dtype=float)
         points.astype('float64')
         for i in range(0, len(points), 4):
@@ -34,14 +46,27 @@ def to_five_dimensional(corner_points):
     return df
 
 
-# def test():
-path = "../debug_dataset"
+def test():
+    path = "../debug_dataset"  # Only add a couple of pictures to this path
+    images, pos_rectangles, neg_rectangles = load_data(path)
+    pos_rectangles = to_five_dimensional(pos_rectangles)
 
-images, pos_rectangles, neg_rectangles = load_data(path)
+    _, center_x, center_y, w, h, angle = pos_rectangles.iloc[0]
 
-bla = to_five_dimensional(pos_rectangles)
+    to_four_points(center_x, center_y, w, h, angle)
 
-for i, j in images.iterrows():
-    plot(j["images"], j["filenames"])
+    for i, j in images.iterrows():
+        file = j["filenames"]
+        rect = pos_rectangles.iloc[0]
+        del rect["filenames"]
+        center_x, center_y, w, h, angle = rect
+        df = pos_rectangles[pos_rectangles.filenames == j["filenames"]]
+        df = df.loc[:, ['center_x', 'center_y', 'width', 'height', 'angle']]
 
-# test()
+        rect = to_four_points(center_x, center_y, w, h, angle)
+
+        plot(j["images"], j["filenames"], rect)
+
+
+if __name__ == "__main__":
+    test()
