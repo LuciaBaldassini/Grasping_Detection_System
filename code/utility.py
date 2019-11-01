@@ -2,9 +2,18 @@ import cv2 as cv
 import pandas as pd
 import os
 
+COLORS = {"green": (0, 255, 0), "gray": (120, 120, 120)}
 
-def plot(image, image_name):
+
+def plot(image, image_name, rectangles=None):
     cv.namedWindow(image_name, cv.WINDOW_NORMAL)
+    if rectangles is not None:
+        for _, row_values in rectangles.iterrows():
+            _, p1, p2, p3, p4 = row_values
+            cv.line(image, tuple(p1.astype(int).tolist()), tuple(p2.astype(int).tolist()), COLORS["gray"])
+            cv.line(image, tuple(p1.astype(int).tolist()), tuple(p4.astype(int).tolist()), COLORS["green"])
+            cv.line(image, tuple(p4.astype(int).tolist()), tuple(p3.astype(int).tolist()), COLORS["gray"])
+            cv.line(image, tuple(p3.astype(int).tolist()), tuple(p2.astype(int).tolist()), COLORS["green"])
     cv.imshow(image_name, image)
     cv.waitKey(0)
     cv.destroyWindow(image_name)
@@ -18,9 +27,9 @@ def load_data(data_path):
     print("loading data")
 
     # Determine the suffixes of the files.
-    image_suffix = ".png"
-    pos_suffix = "pos.txt"
-    neg_suffix = "neg.txt"
+    image_suffix = "r.png"
+    pos_suffix = "cpos.txt"
+    neg_suffix = "cneg.txt"
 
     # Load the images and rectangles.
     images = pd.DataFrame(columns=["filenames", "images"])
@@ -30,7 +39,8 @@ def load_data(data_path):
         file_path = data_path + "/" + str(filename)
 
         if str(filename).endswith(image_suffix):
-            new_row = [str(filename), read_image(file_path)]
+            suffix = str(filename).replace(image_suffix, '')
+            new_row = [suffix, read_image(file_path)]
             images.loc[len(images)] = new_row
 
         if str(filename).endswith(pos_suffix) or str(filename).endswith(neg_suffix):
@@ -42,8 +52,9 @@ def load_data(data_path):
                     del points[i]
 
             points.columns = ["x", "y"]
-            points.insert(0, "filenames", str(filename))
-
+            suffix = pos_suffix if str(filename).endswith(pos_suffix) else neg_suffix
+            suffix = str(filename).replace(suffix, '')
+            points.insert(0, "filenames", suffix)
             if str(filename).endswith(pos_suffix):
                 pos_rectangles = pos_rectangles.append(points, ignore_index=True)
             else:

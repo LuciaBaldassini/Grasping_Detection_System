@@ -6,19 +6,25 @@ import pandas as pd
 from utility import load_data, plot
 
 
-def to_four_points(center_x, center_y, w, h, angle):
+def to_four_points(rectangles):
     # TODO: make it so it will take a dataframe of rectangles, and output another dataframe of rectangles (size
     #  8+filename).
-    v = [(w / 2) * np.cos(angle), (w / 2) * np.sin(angle)]
-    v_orth = [-v[1], v[0]]
-    v1 = (v / np.linalg.norm(v)) * (w / 2)
-    v2 = (v_orth / np.linalg.norm(v_orth)) * (h / 2)
-    p0 = np.asarray((center_x, center_y))
-    p1 = p0 - v1 - v2
-    p2 = p0 + v1 - v2
-    p3 = p0 + v1 + v2
-    p4 = p0 - v1 + v2
-    return p1, p2, p3, p4
+    df = pd.DataFrame(columns=["filenames", "p1", "p2", "p3", "p4"])
+    for _, row_values in rectangles.iterrows():
+        filename, center_x, center_y, w, h, angle = row_values
+        v = [(w / 2) * np.cos(angle), (w / 2) * np.sin(angle)]
+        v_orth = [-v[1], v[0]]
+        v1 = (v / np.linalg.norm(v)) * (w / 2)
+        v2 = (v_orth / np.linalg.norm(v_orth)) * (h / 2)
+        p0 = np.asarray((center_x, center_y))
+        p1 = p0 - v1 - v2
+        p2 = p0 + v1 - v2
+        p3 = p0 + v1 + v2
+        p4 = p0 - v1 + v2
+        new_row = [filename, p1, p2, p3, p4]
+        df.loc[len(df)] = new_row
+
+    return df
 
 
 def to_five_dimensional(corner_points):
@@ -41,31 +47,20 @@ def to_five_dimensional(corner_points):
             center_y = y1 + h / 2
             angle = np.arcsin((y2 - y1) / w)
             rectangle_list.append([center_x, center_y, w, h, angle])
-            df = df.append({'filenames': filename, 'center_x': center_x, 'center_y': center_y, 'width': w, 'height': h,
-                            'angle': angle}, ignore_index=True)
+            new_row = [filename, center_x, center_y, w, h, angle]
+            df.loc[len(df)] = new_row
     return df
 
 
 def test():
     path = "../debug_dataset"  # Only add a couple of pictures to this path
     images, pos_rectangles, neg_rectangles = load_data(path)
+    debug_pos_rectangles = pos_rectangles
     pos_rectangles = to_five_dimensional(pos_rectangles)
-
-    _, center_x, center_y, w, h, angle = pos_rectangles.iloc[0]
-
-    to_four_points(center_x, center_y, w, h, angle)
+    aux = to_four_points(pos_rectangles)
 
     for i, j in images.iterrows():
-        file = j["filenames"]
-        rect = pos_rectangles.iloc[0]
-        del rect["filenames"]
-        center_x, center_y, w, h, angle = rect
-        df = pos_rectangles[pos_rectangles.filenames == j["filenames"]]
-        df = df.loc[:, ['center_x', 'center_y', 'width', 'height', 'angle']]
-
-        rect = to_four_points(center_x, center_y, w, h, angle)
-
-        plot(j["images"], j["filenames"], rect)
+        plot(j["images"], j["filenames"], aux)
 
 
 if __name__ == "__main__":
