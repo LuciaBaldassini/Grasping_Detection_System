@@ -11,9 +11,9 @@ def plot(image, image_name, rectangles=None):
         for _, row_values in rectangles.iterrows():
             _, p1, p2, p3, p4 = row_values
             cv.line(image, tuple(p1.astype(int).tolist()), tuple(p2.astype(int).tolist()), COLORS["gray"])
-            cv.line(image, tuple(p1.astype(int).tolist()), tuple(p4.astype(int).tolist()), COLORS["green"])
-            cv.line(image, tuple(p4.astype(int).tolist()), tuple(p3.astype(int).tolist()), COLORS["gray"])
-            cv.line(image, tuple(p3.astype(int).tolist()), tuple(p2.astype(int).tolist()), COLORS["green"])
+            cv.line(image, tuple(p2.astype(int).tolist()), tuple(p3.astype(int).tolist()), COLORS["green"])
+            cv.line(image, tuple(p3.astype(int).tolist()), tuple(p4.astype(int).tolist()), COLORS["gray"])
+            cv.line(image, tuple(p4.astype(int).tolist()), tuple(p1.astype(int).tolist()), COLORS["green"])
     cv.imshow(image_name, image)
     cv.waitKey(0)
     cv.destroyWindow(image_name)
