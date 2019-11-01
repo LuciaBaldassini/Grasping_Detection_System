@@ -51,7 +51,6 @@ def to_five_dimensional(corner_points):
 def test():
     path = "../debug_dataset"  # Only add a couple of pictures to this path
     images, pos_rectangles, neg_rectangles = load_data(path)
-    debug_pos_rectangles = pos_rectangles
     pos_rectangles = to_five_dimensional(pos_rectangles)
     df = to_four_points(pos_rectangles)
     for i, j in images.iterrows():
@@ -80,5 +79,5 @@ def test_without_changes():
 
 
 if __name__ == "__main__":
-    # test_without_changes()
+    test_without_changes()
     test()
