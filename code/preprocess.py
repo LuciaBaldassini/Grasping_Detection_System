@@ -7,8 +7,6 @@ from utility import load_data, plot
 
 
 def to_four_points(rectangles):
-    # TODO: make it so it will take a dataframe of rectangles, and output another dataframe of rectangles (size
-    #  8+filename).
     df = pd.DataFrame(columns=["filenames", "p1", "p2", "p3", "p4"])
     for _, row_values in rectangles.iterrows():
         filename, center_x, center_y, w, h, angle = row_values
