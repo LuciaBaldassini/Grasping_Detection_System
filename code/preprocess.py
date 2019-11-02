@@ -91,14 +91,16 @@ def to_five_dimensional(corner_points):
             p1 = np.asarray((points.iloc[i][0], points.iloc[i][1]))
             p2 = np.asarray((points.iloc[i + 1][0], points.iloc[i + 1][1]))
             p3 = np.asarray((points.iloc[i + 2][0], points.iloc[i + 2][1]))
-            # p4 = np.asarray((points.iloc[i + 3][0], points.iloc[i + 3][1]))
-            w = euclidean(p1, p2)
-            h = euclidean(p2, p3)
-            v_diag = p3 - p1  # the vector representing the diagonal
-            center = p1 + v_diag / 2
-            angle = angle_with_horizontal((p2 - p1))
-            new_row = [filename, center[0], center[1], w, h, angle]
-            df.loc[len(df)] = new_row
+            p4 = np.asarray((points.iloc[i + 3][0], points.iloc[i + 3][1]))
+            is_nan = np.isnan(np.asarray([p1, p2, p3, p4]))
+            if not np.any(is_nan):
+                w = euclidean(p1, p2)
+                h = euclidean(p2, p3)
+                v_diag = p3 - p1  # the vector representing the diagonal
+                center = p1 + v_diag / 2
+                angle = angle_with_horizontal((p2 - p1))
+                new_row = [filename, center[0], center[1], w, h, angle]
+                df.loc[len(df)] = new_row
     return df
 
 
