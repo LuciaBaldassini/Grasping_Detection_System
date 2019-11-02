@@ -8,6 +8,22 @@ import pandas as pd
 from utility import load_data, plot
 
 
+def normalize_pix_val(image_df):
+    """
+    Normalize pixel values to be between 0 and 1.
+
+    Args:
+        image_df(pd.DataFrame): DataFrame containing the images. The image
+            array itself should be stored in a column named "images"
+
+    Returns:
+        (pd.DataFrame): The DataFrame with the images normalized
+
+    """
+    image_df.images = image_df.images / 255.0
+    return image_df
+
+
 def angle_with_horizontal(v1):
     """
     Returns the angle in radians between vectors 'v1' and the horizontal
@@ -63,7 +79,8 @@ def to_five_dimensional(corner_points):
         corner_points(pd.DataFrame): The dataframe that is output from the load_data function.
 
     Returns:
-        (pd.DataFrame): A DataFrame containing all the rectangles in a 5 dimensional representation. Each row is a rectangle.
+        (pd.DataFrame): A DataFrame containing all the rectangles in a 5 dimensional representation.
+            Each row is arectangle.
     """
     df = pd.DataFrame(columns=['filenames', 'center_x', 'center_y', 'width', 'height', 'angle'])
     for filename in corner_points.filenames.unique():
