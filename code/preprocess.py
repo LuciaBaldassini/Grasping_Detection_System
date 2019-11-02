@@ -16,10 +16,7 @@ def angle_with_horizontal(v1):
     Returns:
         (float): The angle in radians between vector v1 and the horizontal
     """
-    v2 = np.asarray([1, 0])
-    cosang = np.dot(v1, v2)
-    sinang = np.linalg.norm(np.cross(v1, v2))
-    return np.arctan2(sinang, cosang)
+    return np.arctan2(v1[1], v1[0])
 
 
 def to_four_points(rectangles):
