@@ -161,6 +161,22 @@ def save_labels(path_to_data, path_to_labels):
     neg_rectangles.to_csv(neg_label_path)
 
 
+def split_train_test_data(images_df):
+    """
+    Splits the images into training and test set.
+
+    Args:
+        images_df(pd.DataFrame): DataFrame with all the images in the dataset
+
+    Returns:
+        (tuple): DataFrame for the train set and test set.
+    """
+    df_copy = images_df.copy()
+    train_set = df_copy.sample(frac=0.9, random_state=0)
+    test_set = df_copy.drop(train_set.index)
+    return train_set, test_set
+
+
 if __name__ == "__main__":
     # test_without_changes()
     # test()
