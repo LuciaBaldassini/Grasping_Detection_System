@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import numpy as np
 from scipy.spatial.distance import euclidean
 import pandas as pd
@@ -127,6 +129,22 @@ def test_without_changes():
         plot(j["images"], j["filenames"], rectangles)
 
 
+def save_labels(path_to_data, path_to_labels):
+    _, pos_rectangles, neg_rectangles = load_data(path_to_data)
+    pos_rectangles = to_five_dimensional(pos_rectangles)
+    neg_rectangles = to_five_dimensional(neg_rectangles)
+
+    saved_path = Path(path_to_labels)
+    pos_label_path = saved_path / "pos_labels.csv"
+    neg_label_path = saved_path / "neg_labels.csv"
+    if not saved_path.exists():
+        Path.mkdir(saved_path, parents=True)
+
+    pos_rectangles.to_csv(pos_label_path)
+    neg_rectangles.to_csv(neg_label_path)
+
+
 if __name__ == "__main__":
     # test_without_changes()
-    test()
+    # test()
+    save_labels("../dataset", "../labels")
