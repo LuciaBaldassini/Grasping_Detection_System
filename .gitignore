@@ -105,6 +105,9 @@ venv.bak/
 
 # custom ingnores
 dataset/
+debug_dataset/
 .idea
 test/
 venv/
+background/
+labels/
