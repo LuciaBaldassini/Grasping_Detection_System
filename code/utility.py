@@ -37,28 +37,29 @@ def load_data(data_path):
     neg_rectangles = pd.DataFrame(columns=["filenames", "x", "y"])
     for filename in os.listdir(data_path + "/"):
         file_path = data_path + "/" + str(filename)
+        if not os.stat(file_path).st_size == 0:
+        
+            if str(filename).endswith(image_suffix):
+                suffix = str(filename).replace(image_suffix, '')
+                new_row = [suffix, read_image(file_path)]
+                images.loc[len(images)] = new_row
 
-        if str(filename).endswith(image_suffix):
-            suffix = str(filename).replace(image_suffix, '')
-            new_row = [suffix, read_image(file_path)]
-            images.loc[len(images)] = new_row
+            if str(filename).endswith(pos_suffix) or str(filename).endswith(neg_suffix):
+                points = pd.read_csv(file_path, sep=" ", header=None)
 
-        if str(filename).endswith(pos_suffix) or str(filename).endswith(neg_suffix):
-            points = pd.read_csv(file_path, sep=" ", header=None)
+                # Remove any extra columns with NaN values that should not be read.
+                if len(points.columns) > 2:
+                    for i in range(2, len(points.columns)):
+                        del points[i]
 
-            # Remove any extra columns with NaN values that should not be read.
-            if len(points.columns) > 2:
-                for i in range(2, len(points.columns)):
-                    del points[i]
-
-            points.columns = ["x", "y"]
-            suffix = pos_suffix if str(filename).endswith(pos_suffix) else neg_suffix
-            suffix = str(filename).replace(suffix, '')
-            points.insert(0, "filenames", suffix)
-            if str(filename).endswith(pos_suffix):
-                pos_rectangles = pos_rectangles.append(points, ignore_index=True)
-            else:
-                neg_rectangles = neg_rectangles.append(points, ignore_index=True)
+                points.columns = ["x", "y"]
+                suffix = pos_suffix if str(filename).endswith(pos_suffix) else neg_suffix
+                suffix = str(filename).replace(suffix, '')
+                points.insert(0, "filenames", suffix)
+                if str(filename).endswith(pos_suffix):
+                    pos_rectangles = pos_rectangles.append(points, ignore_index=True)
+                else:
+                     neg_rectangles = neg_rectangles.append(points, ignore_index=True)
 
     return images, pos_rectangles, neg_rectangles
 
