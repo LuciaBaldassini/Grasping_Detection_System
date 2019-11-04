@@ -1,18 +1,17 @@
-import torchvision.models as models
-from torchsummary import summary
-import torch
 import os
+from keras_applications import resnet
+from keras.models import load_model
 
 
-def load_model():
+def load(filename):
     try:
-        model = torch.load('alexNet.pt')
+        model = load_model(filename)
         return model
     except IOError as e:
         print("No such file")
 
 
-class AlexNet:
+class ResNet50:
 
     def __init__(self, pretrained=False):
         self.pre_trained = pretrained
@@ -20,20 +19,22 @@ class AlexNet:
 
     def _build(self):
         if self.pre_trained:
-            self.model = models.alexnet(progress=True)
+            self.model = resnet.ResNet50(include_top=True, weights='imagenet', iut_tensor=None, input_shape=None, pooling=None, classes=5)
+            # model.classifier[6] = nn.Linear(4096, 5)np
         else:
-            self.model = models.alexnet(pretrained=True, progress=True)
+            self.model = resnet.ResNet50(include_top=True, weights='None', iut_tensor=None, input_shape=None, pooling=None, classes=5)
         return self.model
 
     def summary(self):
         print()
         print()
-        print("ALEXNET MODEL")
+        print("RESNET50 MODEL")
         print("--------------------")
-        summary(self.model, (3, 224, 224, 4))
+        self.model.summary()
 
     def save_model(self, path):
-        print("saving AlexNet model...")
+        print("saving ResNet50 model...")
         if not os.path.isdir(str(path)):
             os.mkdir(str(path))
-        torch.save(self.model, str(path) + "alexNet.pt")
+
+        self.model.save(str(path) + "/resNet50.h5")
