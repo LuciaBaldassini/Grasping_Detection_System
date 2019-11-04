@@ -54,7 +54,7 @@ def load_data(data_path):
 
 
 def test():
-  path = "../test"
+  path = "../dataset"
 
   x, y, z = load_data(path)
   print(y)
