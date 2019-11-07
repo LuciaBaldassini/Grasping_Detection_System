@@ -34,14 +34,14 @@ class ResNet50:
       os.mkdir(str(output_path))
 
     plt.plot(training.history["acc"])
-    plt.title("Pretrained ResNet50 training accuracy")
+    plt.title("ResNet50 training accuracy")
     plt.ylabel("Accuracy")
     plt.xlabel("Epoch")
     plt.savefig("./output/model-training-accuracy")
     plt.close()
 
     plt.plot(training.history["loss"])
-    plt.title("Pretrained ResNet50 training loss")
+    plt.title("ResNet50 training loss")
     plt.ylabel("Loss")
     plt.xlabel("Epoch")
     plt.savefig("./output/model-training-loss")
@@ -65,7 +65,7 @@ class ResNet50:
     self.model.summary()
 
   def save_model(self, path):
-    print("saving ResNet50 model...")
+    print("Saving ResNet50 model")
     if not os.path.isdir(str(path)):
       os.mkdir(str(path))
 
