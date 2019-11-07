@@ -127,8 +127,9 @@ def test():
     images, pos_rectangles, neg_rectangles = load_data(path)
     pos_rectangles = to_five_dimensional(pos_rectangles)
     replicated_imgs = replicate_images(images, pos_rectangles)
+    x_train, y_train, x_test, y_test = split_train_test_data(replicated_imgs, pos_rectangles)
     df = to_four_points(pos_rectangles)
-    for i, j in replicated_imgs.iterrows():
+    for i, j in x_test.iterrows():
         rectangles = df[df.filenames == j["filenames"]]
         plot(j["images"], j["filenames"], rectangles)
 
@@ -177,20 +178,27 @@ def save_labels(path_to_data, path_to_labels):
     neg_rectangles.to_csv(neg_label_path)
 
 
-def split_train_test_data(images_df):
+def split_train_test_data(images_df, rectangles_df):
     """
     Splits the images into training and test set.
 
     Args:
         images_df(pd.DataFrame): DataFrame with all the images in the dataset
+        rectangles_df(pd.DataFrame): DataFrame with all the rectangles.
 
     Returns:
-        (tuple): DataFrame for the train set and test set.
+        (tuple): DataFrames for the train set and test set.
     """
-    df_copy = images_df.copy()
-    train_set = df_copy.sample(frac=0.9, random_state=0)
-    test_set = df_copy.drop(train_set.index)
-    return train_set, test_set
+    rect = rectangles_df.loc[:, ['center_x', 'center_y', 'width', 'height', 'angle']]
+    joint_df = pd.concat([images_df, rect], axis=1)
+    print(joint_df.columns)
+    train_set = joint_df.sample(frac=0.9, random_state=0)
+    test_set = joint_df.drop(train_set.index)
+    x_train = train_set.loc[:, ['filenames', 'images']]
+    y_train = train_set.loc[:, ['filenames', 'center_x', 'center_y', 'width', 'height', 'angle']]
+    x_test = test_set.loc[:, ['filenames', 'images']]
+    y_test = test_set.loc[:, ['filenames', 'center_x', 'center_y', 'width', 'height', 'angle']]
+    return x_train, y_train, x_test, y_test
 
 
 if __name__ == "__main__":
