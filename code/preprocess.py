@@ -191,7 +191,6 @@ def split_train_test_data(images_df, rectangles_df):
     """
     rect = rectangles_df.loc[:, ['center_x', 'center_y', 'width', 'height', 'angle']]
     joint_df = pd.concat([images_df, rect], axis=1)
-    print(joint_df.columns)
     train_set = joint_df.sample(frac=0.9, random_state=0)
     test_set = joint_df.drop(train_set.index)
     x_train = train_set.loc[:, ['filenames', 'images']]
