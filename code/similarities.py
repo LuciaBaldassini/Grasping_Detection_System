@@ -64,3 +64,21 @@ def ruzicka_distance(datFr, name, pred):
     # Getting Ruzicka for all correct Rectangles
     ruz_distances = corr_rect.apply(ruz_similarity, axis=1, args=[pred])  
     return ruz_distances.min()
+
+"""
+Function to incorporate both the positive and negative rectangles. Computes
+both the Ruzicka distance to the closest positive and negative rectangle and 
+returns the positive plus the inverted negative Soergel Distance divided by two.
+
+Input:
+    pos_df: 5 Dim. DataFrame including all labels for pos. rectangles 
+        (see ruzicka_distance)
+    neg_df: 5 DIm. DataFrame, but for negative rectangles
+    name: Name as string of correct image
+    pred: Prediction Rectangle
+"""
+
+def ruz_posneg(pos_df, neg_df, name, pred):
+    ruz_pos = ruzicka_distance(pos_df, name, pred)
+    ruz_neg = 1 - ruzicka_distance(neg_df, name, pred)
+    return (ruz_pos + ruz_neg) / 2
