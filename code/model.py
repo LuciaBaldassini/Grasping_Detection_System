@@ -10,22 +10,20 @@ plt.rcParams.update({"font.size": 12})
 
 class ResNet50:
 
-  def __init__(self, pretrained=False, optimizer="Adam", loss="mse"):
+  def __init__(self, pretrained, optimizer="Adam", loss="mse"):
     self.model = None
     self.input = Input(shape=(640, 480, 3))
     self.build(pretrained, optimizer, loss)
 
-  def build(self, pretrained, optimizer=optimizer, loss=loss):
+  def build(self, pretrained, optimizer, loss):
     if pretrained:
-      model = resnet.ResNet50(include_top=False, input_tensor=self.input, weights="imagenet", classes=5)
-      flat = Flatten()(model.outputs)
-      dense = Dense(5, activation='relu')(flat)
-      self.model = Model(inputs=model.inputs, outputs=dense)
+      weights = "imagenet"
     else:
-      model = resnet.ResNet50(include_top=False, input_tensor=self.input, weights=None, classes=5)
-      flat = Flatten()(model.outputs)
-      dense = Dense(5, activation='relu')(flat)
-      self.model = Model(inputs=model.inputs, outputs=dense)
+      weights = None
+    model = resnet.ResNet50(include_top=False, input_tensor=self.input, weights=weights, classes=5)
+    flat = Flatten()(model.outputs)
+    dense = Dense(5, activation="relu")(flat)
+    self.model = Model(inputs=model.inputs, outputs=dense)
 
     self.model.compile(loss=loss, optimizer=optimizer)
 
