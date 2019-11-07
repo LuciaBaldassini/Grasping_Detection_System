@@ -11,3 +11,13 @@ curl http://pr.cs.cornell.edu/grasping/rect_data/temp/data07.tar.gz -o data07.ta
 curl http://pr.cs.cornell.edu/grasping/rect_data/temp/data08.tar.gz -o data08.tar.gz
 curl http://pr.cs.cornell.edu/grasping/rect_data/temp/data09.tar.gz -o data09.tar.gz
 curl http://pr.cs.cornell.edu/grasping/rect_data/temp/data10.tar.gz -o data10.tar.gz
+
+for f in *.tar.gz; do
+  echo "Extracting file $f"
+  tar -xzf "$f"
+done
+
+echo "Moving everything to /dataset"
+mv 01/* 02/* 03/* 04/* 05/* 06/* 07/* 08/* 09/* 10/* dataset/
+rm -rf 0* 10/
+rm data0* data10.tar.gz
