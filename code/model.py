@@ -19,10 +19,9 @@ class ResNet50:
 
     def _build(self):
         if self.pre_trained:
-            self.model = resnet.ResNet50(include_top=True, weights='imagenet', iut_tensor=None, input_shape=None, pooling=None, classes=5)
-            # model.classifier[6] = nn.Linear(4096, 5)np
+            self.model = resnet.ResNet50(include_top=True, weights='imagenet', input_tensor=None, input_shape=None, pooling=None, classes=5)
         else:
-            self.model = resnet.ResNet50(include_top=True, weights='None', iut_tensor=None, input_shape=None, pooling=None, classes=5)
+            self.model = resnet.ResNet50(include_top=True, weights='None', input_tensor=None, input_shape=None, pooling=None, classes=5)
         return self.model
 
     def summary(self):
