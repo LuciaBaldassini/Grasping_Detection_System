@@ -8,6 +8,19 @@ import pandas as pd
 from utility import load_data, plot
 
 
+def replicate_images(images_df, rectangles_df):
+    new_images_df = images_df.copy()
+    for filename in rectangles_df.filenames.unique():
+        rect = rectangles_df[rectangles_df["filenames"] == filename]
+        replications = len(rect) - 1
+        copy_img_df = images_df.loc[images_df['filenames'] == filename]
+        for _ in range(replications):
+            new_images_df = pd.concat([new_images_df, copy_img_df], ignore_index=True)
+    new_images_df = new_images_df.sort_values(by=['filenames']).reset_index(drop=True)
+    # print(new_images_df['filenames'])
+    return new_images_df
+
+
 def normalize_pix_val(image_df):
     """
     Normalize pixel values to be between 0 and 1.
@@ -113,8 +126,9 @@ def test():
     path = "../debug_dataset"  # Only add a couple of pictures to this path
     images, pos_rectangles, neg_rectangles = load_data(path)
     pos_rectangles = to_five_dimensional(pos_rectangles)
+    replicated_imgs = replicate_images(images, pos_rectangles)
     df = to_four_points(pos_rectangles)
-    for i, j in images.iterrows():
+    for i, j in replicated_imgs.iterrows():
         rectangles = df[df.filenames == j["filenames"]]
         plot(j["images"], j["filenames"], rectangles)
 
@@ -181,5 +195,5 @@ def split_train_test_data(images_df):
 
 if __name__ == "__main__":
     # test_without_changes()
-    # test()
-    save_labels("../dataset", "../labels")
+    test()
+    # save_labels("../dataset", "../labels")
