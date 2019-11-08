@@ -19,5 +19,5 @@ x_train = x_train["images"]
 x_train = np.array([x for x in x_train])
 del y_train["filenames"]
 
-model.train(x_train, y_train, epochs=2, batch_size=1, validation_split=0.1, output_path="./output")
-#model.save_model("./output") Better not save this because its huge and uselessg
+model.train(x_train, y_train, epochs=20, batch_size=1, validation_split=0.1, output_path="./output")
+#model.test(x_train, y_train, "./output", batch_size=1)
