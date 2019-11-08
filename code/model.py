@@ -12,7 +12,7 @@ class ResNet50:
 
   def __init__(self, pretrained, optimizer="Adam", loss="mse"):
     self.model = None
-    self.input = Input(shape=(640, 480, 3))
+    self.input = Input(shape=(480, 640, 3))
     self.build(pretrained, optimizer, loss)
 
   def build(self, pretrained, optimizer, loss):
@@ -25,7 +25,7 @@ class ResNet50:
     dense = Dense(5, activation="relu")(flat)
     self.model = Model(inputs=model.inputs, outputs=dense)
 
-    self.model.compile(loss=loss, optimizer=optimizer)
+    self.model.compile(loss=loss, optimizer=optimizer, metrics=["accuracy"])
 
   def train(self, x_train, y_train, epochs, batch_size, validation_split, output_path):
     training = self.model.fit(x_train, y_train, validation_split=validation_split, epochs=epochs, batch_size=batch_size)
@@ -33,19 +33,38 @@ class ResNet50:
     if not os.path.isdir(str(output_path)):
       os.mkdir(str(output_path))
 
-    plt.plot(training.history["acc"])
-    plt.title("ResNet50 training accuracy")
-    plt.ylabel("Accuracy")
-    plt.xlabel("Epoch")
-    plt.savefig("./output/model-training-accuracy")
-    plt.close()
+    if validation_split != 0:
+      plt.plot(training.history["acc"])
+      plt.plot(training.history["val_acc"])
+      plt.title("ResNet50 Training Accuracy")
+      plt.ylabel("Accuracy")
+      plt.xlabel("Epoch")
+      plt.legend(["Training set", "Validation set"], loc="upper left")
+      plt.savefig("./output/model-training-accuracy")
+      plt.close()
 
-    plt.plot(training.history["loss"])
-    plt.title("ResNet50 training loss")
-    plt.ylabel("Loss")
-    plt.xlabel("Epoch")
-    plt.savefig("./output/model-training-loss")
-    plt.close()
+      plt.plot(training.history["loss"])
+      plt.plot(training.history["val_loss"])
+      plt.title("ResNet50 Training Loss")
+      plt.ylabel("Loss")
+      plt.xlabel("Epoch")
+      plt.legend(["Training set", "Validation set"], loc="upper left")
+      plt.savefig("./output/model-training-loss")
+      plt.close()
+    else:
+      plt.plot(training.history["acc"])
+      plt.title("ResNet50 Training Accuracy")
+      plt.ylabel("Accuracy")
+      plt.xlabel("Epoch")
+      plt.savefig("./output/model-training-accuracy")
+      plt.close()
+
+      plt.plot(training.history["loss"])
+      plt.title("ResNet50 Training Loss")
+      plt.ylabel("Loss")
+      plt.xlabel("Epoch")
+      plt.savefig("./output/model-training-loss")
+      plt.close()
 
   def test(self, x_test, y_test, output_path):
     testing = self.model.evaluate(x_test, y_test)

@@ -14,7 +14,10 @@ x_train, x_test = normalize_pix_val(x_train), normalize_pix_val(x_test)
 model = ResNet50(pretrained=True)
 model.summary()
 
-print(x_train.columns)  # DEBUG
-print(y_train.columns)  # DEBUG
-model.train(x_train, y_train, epochs=50, batch_size=8, validation_split=10, output_path="./output")
-model.save_model("./output")
+import numpy as np
+x_train = x_train["images"]
+x_train = np.array([x for x in x_train])
+del y_train["filenames"]
+
+model.train(x_train, y_train, epochs=2, batch_size=1, validation_split=0.1, output_path="./output")
+#model.save_model("./output") Better not save this because its huge and uselessg
