@@ -66,8 +66,8 @@ class ResNet50:
       plt.savefig("./output/model-training-loss")
       plt.close()
 
-  def test(self, x_test, y_test, output_path):
-    testing = self.model.evaluate(x_test, y_test)
+  def test(self, x_test, y_test, output_path, batch_size):
+    testing = self.model.evaluate(x_test, y_test, batch_size=batch_size)
 
     if not os.path.isdir(str(output_path)):
       os.mkdir(str(output_path))
