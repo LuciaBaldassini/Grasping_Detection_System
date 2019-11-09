@@ -56,7 +56,36 @@ class ToTensor(object):
 class Normalize(object):
     """Normalizes values between -1 and 1."""
 
+    def __init__(self, pre_trained):
+        self.pre_trained = pre_trained
+
     def __call__(self, sample):
         image, rectangle = sample['image'], sample['rectangle']
         image = image / 255.0
+        """
+        All pre-trained models expect input images normalized in the same way, 
+        i.e. mini-batches of 3-channel RGB images of shape (3 x H x W), where 
+        H and W are expected to be at least 224. The images have to be loaded in 
+        to a range of [0, 1] and then normalized using mean = [0.485, 0.456, 0.406] 
+        and std = [0.229, 0.224, 0.225]
+        
+        Based on https://pytorch.org/docs/stable/torchvision/models.html
+        """
+        if self.pre_trained:
+            image = image.clone()
+            dtype = image.dtype
+            mean = torch.as_tensor([0.485, 0.456, 0.406], dtype=dtype, device=image.device)
+            std = torch.as_tensor([0.229, 0.224, 0.225], dtype=dtype, device=image.device)
+            image.sub_(mean[:, None, None]).div_(std[:, None, None])
+
         return {'image': image, 'rectangle': rectangle}
+
+
+def de_normalize(image):
+    image = image.clone()
+    dtype = image.dtype
+    mean = torch.as_tensor([0.485, 0.456, 0.406], dtype=dtype, device=image.device)
+    std = torch.as_tensor([0.229, 0.224, 0.225], dtype=dtype, device=image.device)
+    image.mul_(std[:, None, None]).add_(mean[:, None, None])
+    image = image * 255.0
+    return image.int()
