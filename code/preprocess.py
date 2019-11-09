@@ -8,6 +8,12 @@ import pandas as pd
 from utility import load_data, plot
 
 
+def img_df_to_ndarray(df):
+    aux = df['images'].to_numpy()
+    aux = [img for img in aux]
+    return np.asarray(aux)
+
+
 def replicate_images(images_df, rectangles_df):
     new_images_df = images_df.copy()
     for filename in rectangles_df.filenames.unique():
