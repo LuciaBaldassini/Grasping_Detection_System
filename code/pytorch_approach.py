@@ -8,10 +8,28 @@ from torchvision import transforms
 
 from cornell_dataset import CornellDataset, ToTensor, Normalize, de_normalize
 from util import plot_image
+from pytorch_model import OurResnet
+
+
+def test_data_loader(loader):
+    for i_batch, sample_batched in enumerate(loader):
+        for i, image in enumerate(sample_batched['image']):
+            rect = sample_batched['rectangle'][i].numpy()
+            image = de_normalize(image)
+            image = image.numpy().transpose((1, 2, 0))
+            print("For i_batch {}, image_idx {}: {} {}".format(i_batch, i, image.shape, rect.shape))
+            plot_image(image, rect)
+
+        print(i_batch, sample_batched['image'].size(), sample_batched['rectangle'].size())
+        if i_batch >= 1:
+            break
+
 
 # PATH_TO_DATA = Path('/home/diego/Documents/RUG/CognitiveRobotics/Grasping_Detection_System/dataset')
-PATH_TO_DATA = Path('/home/diego/Documents/RUG/CognitiveRobotics/Grasping_Detection_System/debug_dataset')
-PATH_TO_POS_LABELS = Path('/home/diego/Documents/RUG/CognitiveRobotics/Grasping_Detection_System/labels/pos_labels.csv')
+ROOT_PATH = Path('/home/diego/Documents/RUG/CognitiveRobotics/Grasping_Detection_System')
+PATH_TO_DATA = ROOT_PATH / 'debug_dataset'
+PATH_TO_POS_LABELS = ROOT_PATH / 'labels/pos_labels.csv'
+PATH_TO_OUTPUTS = ROOT_PATH / 'output'
 BATCH_SIZE = 2
 NUM_WORKERS = 4
 TEST_SPLIT = 0.1
@@ -49,16 +67,17 @@ valid_loader = DataLoader(transformed_dataset, batch_size=BATCH_SIZE,
 test_loader = DataLoader(transformed_dataset, batch_size=BATCH_SIZE,
                          sampler=test_sampler, num_workers=NUM_WORKERS)
 
-for i_batch, sample_batched in enumerate(train_loader):
-    for i, image in enumerate(sample_batched['image']):
-        rect = sample_batched['rectangle'][i].numpy()
-        image = de_normalize(image)
-        image = image.numpy().transpose((1, 2, 0))
-        print("For i_batch {}, image_idx {}: {} {}".format(i_batch, i, image.shape, rect.shape))
-        plot_image(image, rect)
+# test_data_loader(train_loader)
 
-    print(i_batch, sample_batched['image'].size(), sample_batched['rectangle'].size())
-    if i_batch >= 1:
-        break
+# Create model
+epochs = 100
+model = OurResnet(dest_path=PATH_TO_OUTPUTS,
+                  epochs=epochs,
+                  train_loader=train_loader,
+                  valid_loader=valid_loader,
+                  test_loader=test_loader,
+                  pre_trained=PRE_TRAINED)
+print("The final model is")
+print(model.model)
 
 print("Bye")
