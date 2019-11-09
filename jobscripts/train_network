@@ -4,6 +4,8 @@
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:v100:1
 #SBATCH --mem=100GB
+#SBATCH --mail-type=FAIL,END
+#SBATCH --mail-user=d.cabo.golvano@student.rug.nl
 
 module purge
 module load Python/3.6.4-fosscuda-2018a
