@@ -25,11 +25,32 @@ class ResNet18(nn.Module):
         return x
 
 
+class ResNet50(nn.Module):
+    def __init__(self, pre_trained=True):
+        super().__init__()
+        res_net = torchvision.models.resnet50(pretrained=pre_trained)
+        res_net.fc = nn.Linear(2048, 512)  # 2048 for resnet50
+        self.add_module('resnet', res_net)
+
+        fc1 = nn.Linear(512, 128)
+        self.add_module('fc1', fc1)
+
+        fc_reg = nn.Linear(128, 5)
+        self.add_module('fc_reg', fc_reg)
+
+    def forward(self, x):
+        x = self.resnet(x)
+        x = nn.functional.relu(self.fc1(x))
+        x = self.fc_reg(x)
+        return x
+
+
 class OurResnet:
     def __init__(self, dest_path, train_loader, valid_loader, test_loader, pre_trained=True, **kwargs):
         self.dest_path = dest_path
         self.train_loader, self.valid_loader, self.test_loader = train_loader, valid_loader, test_loader
-        self.model = ResNet18(pre_trained=pre_trained)
+        # self.model = ResNet18(pre_trained=pre_trained)
+        self.model = ResNet50(pre_trained=pre_trained)
         self.loss_function = nn.MSELoss()
         self.optimizer = optim.Adam(self.model.parameters())
         # See if we use CPU or GPU

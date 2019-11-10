@@ -40,7 +40,6 @@ def train_network(epochs, n_train_batches, n_val_batches, n_test_batches):
     filename = 'metrics_' + appendix_datetime
     saved_metrics = PATH_TO_OUTPUTS / filename
 
-    print("Starting Training")
     start_ts = time.time()
     for epoch in range(1, epochs + 1):
         total_loss = model.train()
@@ -138,6 +137,8 @@ if __name__ == '__main__':
                 plot_image(image, rect)
 
     else:
+        print(f"Starting Training, batch_size: {batch_size}, epochs: {epochs}, num_workers: {num_workers}, "
+              f"test_split: {test_split}, valid_split: {valid_split}")
         n_train_batches = len(train_loader)
         n_val_batches = len(valid_loader)
         n_test_batches = len(test_loader)
