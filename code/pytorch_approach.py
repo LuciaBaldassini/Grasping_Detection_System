@@ -27,9 +27,10 @@ def test_data_loader(loader):
             break
 
 
-# PATH_TO_DATA = Path('/home/diego/Documents/RUG/CognitiveRobotics/Grasping_Detection_System/dataset')
-ROOT_PATH = Path('/home/diego/Documents/RUG/CognitiveRobotics/Grasping_Detection_System')
-PATH_TO_DATA = ROOT_PATH / 'debug_dataset'
+# ROOT_PATH = Path('/home/diego/Documents/RUG/CognitiveRobotics/Grasping_Detection_System')
+# PATH_TO_DATA = ROOT_PATH / 'debug_dataset'
+ROOT_PATH = Path('/home/s3736555/Grasping_Detection_System')
+PATH_TO_DATA = ROOT_PATH / 'dataset'
 PATH_TO_POS_LABELS = ROOT_PATH / 'labels/pos_labels.csv'
 PATH_TO_OUTPUTS = ROOT_PATH / 'output'
 # Make sure output exists
@@ -99,6 +100,7 @@ saved_model = PATH_TO_OUTPUTS / filename
 filename = 'metrics_' + appendix_datetime
 saved_metrics = PATH_TO_OUTPUTS / filename
 
+print("Starting Training")
 start_ts = time.time()
 for epoch in range(1, EPOCHS + 1):
     total_loss = model.train()

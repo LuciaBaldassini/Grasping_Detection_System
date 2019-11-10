@@ -68,7 +68,7 @@ class OurResnet:
             for i, data in enumerate(data_loader):
                 X, y = data['image'].to(self.device), data['rectangle'].to(self.device)
                 outputs = self.model(X)  # this get's the prediction from the network
-                val_losses.append(self.loss_function(outputs, y).numpy())
+                val_losses.append(self.loss_function(outputs, y))
                 accuracy = calculate_similarity(outputs, y, self.device)
                 accuracies.append(accuracy)
 
