@@ -31,7 +31,7 @@ class CornellDataset(Dataset):
 
         image = io.imread(img_name)
         rectangles = self.cpos_rectangles.iloc[idx, 1:]
-        rectangles = rectangles.to_numpy(dtype=float)
+        rectangles = rectangles.to_numpy(dtype='float32')
         sample = {'image': image, 'rectangle': rectangles}
 
         if self.transform:

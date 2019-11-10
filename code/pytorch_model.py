@@ -1,29 +1,26 @@
-import inspect
-import time
-from pathlib import Path
-
+import torch
 import torchvision
 from torch import nn, optim
-import torch
-from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
+import matplotlib.pyplot as plt
 
 
 class ResNet18(nn.Module):
     def __init__(self, pre_trained=True):
         super().__init__()
-        self.model_resnet = torchvision.models.resnet18(pretrained=pre_trained)
-        print(self.model_resnet)
-        self.model_resnet.fc = nn.Linear(512, 256)  # 512 for resnet18
-        print(self.model_resnet)
-        # self.fc1 = nn.Linear(256, 128)
-        self.fc_reg = nn.Linear(128, 5)
-        self.add_module('resnet', self.model_resnet)
-        self.add_module('fc_reg', self.fc_reg)
+        res_net = torchvision.models.resnet18(pretrained=pre_trained)
+        res_net.fc = nn.Linear(512, 256)  # 512 for resnet18
+        self.add_module('resnet', res_net)
+
+        fc1 = nn.Linear(256, 128)
+        self.add_module('fc1', fc1)
+
+        fc_reg = nn.Linear(128, 5)
+        self.add_module('fc_reg', fc_reg)
 
     def forward(self, x):
-        x = self.model_resnet(x)
-        # x = nn.functional.relu(self.fc1(x))
-        x = nn.functional.relu(self.fc_reg(x))
+        x = self.resnet(x)
+        x = nn.functional.relu(self.fc1(x))
+        x = self.fc_reg(x)
         return x
 
 
@@ -44,7 +41,9 @@ class OurResnet:
         if self.cuda_available:
             self.model.cuda()
         for i, data in enumerate(self.train_loader):
-            X, y = data[0].to(self.device), data[1].to(self.device)
+            X, y = data['image'].to(self.device), data['rectangle'].to(self.device)
+            # X, y = data['image'], data['rectangle']
+            # X, y = X.to(self.device), y.to(self.device)
             # training step for single batch
             self.model.zero_grad()
             outputs = self.model(X)
@@ -63,42 +62,51 @@ class OurResnet:
         return total_loss
 
     def test(self, data_loader):
-        val_losses = 0
-        precision, recall, f1, accuracy = [], [], [], []
+        val_losses = []
+        accuracies = []
         self.model.eval()
         with torch.no_grad():
             for i, data in enumerate(data_loader):
-                X, y = data[0].to(self.device), data[1].to(self.device)
-
+                X, y = data['image'].to(self.device), data['rectangle'].to(self.device)
                 outputs = self.model(X)  # this get's the prediction from the network
+                val_losses.append(self.loss_function(outputs, y).numpy())
+                accuracies.append(0.5)  # TODO: probably here use our own distance function
 
-                val_losses += self.loss_function(outputs, y)
-
-                predicted_classes = torch.max(outputs, 1)[1]  # get class from network's prediction
-
-                # TODO: probably here use our own distance function
-                # calculate P/R/F1/A metrics for batch
-                for acc, metric in zip((precision, recall, f1, accuracy),
-                                       (precision_score, recall_score, f1_score, accuracy_score)):
-                    acc.append(self.calculate_metric(metric, y.cpu(), predicted_classes.cpu()))
-        return val_losses, precision, recall, f1, accuracy
+        return val_losses, accuracies
 
     def validate(self):
         return self.test(self.valid_loader)
-
-    @staticmethod
-    def calculate_metric(metric_fn, true_y, pred_y):
-        # multi class problems need to have averaging method
-        if "average" in inspect.getfullargspec(metric_fn).args:
-            return metric_fn(true_y, pred_y, average="macro")
-        else:
-            return metric_fn(true_y, pred_y)
 
     def save_model(self, path):
         torch.save(self.model.state_dict(), path)
 
     def load_model(self, path):
         self.model.load_state_dict(torch.load(path), strict=False)
+
+    @staticmethod
+    def save_experiment(path, metrics):
+        filename = path.parts[-1] + '-accuracy'
+        filename = (path.parent / filename).as_posix()
+        train_loss, valid_loss, val_accuracy, test_accuracy = list(zip(*metrics))
+        plt.plot(val_accuracy)
+        plt.plot(test_accuracy)
+        plt.title("ResNet50 Accuracy")
+        plt.ylabel("Accuracy")
+        plt.xlabel("Epoch")
+        plt.legend(["Validation set", "Test set"], loc="upper left")
+        plt.savefig(filename)
+        plt.close()
+
+        filename = path.parts[-1] + '-loss'
+        filename = (path.parent / filename).as_posix()
+        plt.plot(train_loss)
+        plt.plot(valid_loss)
+        plt.title("ResNet50 Loss")
+        plt.ylabel("Loss")
+        plt.xlabel("Epoch")
+        plt.legend(["Training set", "Validation set"], loc="upper left")
+        plt.savefig(filename)
+        plt.close()
 
     def free(self):
         del self.model
