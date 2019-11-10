@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import torch
 
 
 def to_four_points(rectangle):
@@ -31,3 +32,18 @@ def plot_image(image, rectangle=None):
         plt.plot((p3[0], p4[0]), (p3[1], p4[1]), color='gray')
         plt.plot((p4[0], p1[0]), (p4[1], p1[1]), color='green')
     plt.pause(0.001)  # pause a bit so that plots are updated
+
+
+def calculate_similarity(predicted, labels, device):
+    similarities = []
+    for i, label in enumerate(labels):
+        min_sum = torch.zeros(1, device=predicted.device)
+        max_sum = torch.zeros(1, device=predicted.device)
+        for x in zip(predicted[i], label):
+            x = torch.Tensor(x)
+            min_sum += x.min()
+            max_sum += x.max()
+        similarity = min_sum / max_sum
+        similarities.append(similarity)
+    similarities = torch.stack(similarities)
+    return similarities.mean().abs()

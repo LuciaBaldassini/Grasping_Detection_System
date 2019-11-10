@@ -2,6 +2,7 @@ import torch
 import torchvision
 from torch import nn, optim
 import matplotlib.pyplot as plt
+from util import calculate_similarity
 
 
 class ResNet18(nn.Module):
@@ -42,8 +43,6 @@ class OurResnet:
             self.model.cuda()
         for i, data in enumerate(self.train_loader):
             X, y = data['image'].to(self.device), data['rectangle'].to(self.device)
-            # X, y = data['image'], data['rectangle']
-            # X, y = X.to(self.device), y.to(self.device)
             # training step for single batch
             self.model.zero_grad()
             outputs = self.model(X)
@@ -70,7 +69,8 @@ class OurResnet:
                 X, y = data['image'].to(self.device), data['rectangle'].to(self.device)
                 outputs = self.model(X)  # this get's the prediction from the network
                 val_losses.append(self.loss_function(outputs, y).numpy())
-                accuracies.append(0.5)  # TODO: probably here use our own distance function
+                accuracy = calculate_similarity(outputs, y, self.device)
+                accuracies.append(accuracy)
 
         return val_losses, accuracies
 
