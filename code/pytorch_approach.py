@@ -35,8 +35,8 @@ PATH_TO_OUTPUTS = ROOT_PATH / 'output'
 # Make sure output exists
 if not PATH_TO_OUTPUTS.exists():
     Path.mkdir(PATH_TO_OUTPUTS, parents=True)
-BATCH_SIZE = 2
-NUM_WORKERS = 2
+BATCH_SIZE = 32
+NUM_WORKERS = 4
 TEST_SPLIT = 0.1
 VALIDATION_SPLIT = 0.1
 RANDOM_SEED = 42
@@ -85,7 +85,7 @@ model = OurResnet(dest_path=PATH_TO_OUTPUTS,
 # print(model.model)
 
 # Training
-EPOCHS = 100
+EPOCHS = 200
 n_train_batches = len(train_loader)
 n_val_batches = len(valid_loader)
 n_test_batches = len(test_loader)
@@ -100,8 +100,7 @@ filename = 'metrics_' + appendix_datetime
 saved_metrics = PATH_TO_OUTPUTS / filename
 
 start_ts = time.time()
-# for epoch in range(1, EPOCHS + 1):
-for epoch in range(1, 2 + 1):
+for epoch in range(1, EPOCHS + 1):
     total_loss = model.train()
     val_losses, val_accuracies = model.validate()
     val_accuracy = sum(val_accuracies) / n_val_batches
