@@ -1,3 +1,5 @@
+import argparse
+
 import numpy as np
 import matplotlib.pyplot as plt
 import torch
@@ -47,3 +49,28 @@ def calculate_similarity(predicted, labels, device):
         similarities.append(similarity)
     similarities = torch.stack(similarities)
     return similarities.mean().abs()
+
+
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='Grasping detection system')
+    parser.add_argument('--batch_size', type=int, default=64,
+                        help='input batch size for training (default: 64)')
+
+    parser.add_argument('--epochs', type=int, default=100,
+                        help='number of epochs to train (default: 100)')
+
+    parser.add_argument('--num_workers', type=int, default=4,
+                        help='number of workers to fetch data (default: 4)')
+
+    parser.add_argument('--test_split', type=float, default=0.1,
+                        help='percentage of dataset to use as test set (default: 0.1)')
+
+    parser.add_argument('--valid_split', type=int, default=0.1,
+                        help='percentage of dataset to use as test set (default: 0.1)')
+
+    parser.add_argument('--test_and_plot', type=str, default="",
+                        help='The path to the saved model we want test network and plot rectangles on images ('
+                             'default: "")')
+    args = parser.parse_args()
+    return (args.batch_size, args.epochs, args.num_workers, args.test_split,
+            args.valid_split, args.test_and_plot)

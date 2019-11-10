@@ -80,11 +80,24 @@ class OurResnet:
     def test(self):
         return self.evaluate(self.test_loader)
 
+    def get_prediction(self, data_loader):
+        self.model.eval()
+        predictions = []
+        images = []
+        with torch.no_grad():
+            for i, data in enumerate(data_loader):
+                X, y = data['image'].to(self.device), data['rectangle'].to(self.device)
+                outputs = self.model(X)  # this get's the prediction from the network
+                print(f"predicted: {outputs}, label: {y}")
+                predictions.append(outputs)
+                images.append(X)
+        return images, predictions
+
     def save_model(self, path):
         torch.save(self.model.state_dict(), path)
 
-    def load_model(self, path):
-        self.model.load_state_dict(torch.load(path), strict=False)
+    def load_model(self, path, device):
+        self.model.load_state_dict(torch.load(path, map_location=device), strict=False)
 
     @staticmethod
     def save_experiment(path, metrics):
