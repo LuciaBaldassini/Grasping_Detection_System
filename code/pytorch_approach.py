@@ -108,7 +108,7 @@ for epoch in range(1, 2 + 1):
     if val_accuracy > best_val_accuracy:
         best_val_accuracy = val_accuracy
         model.save_model(saved_model)
-        _, test_accuracy = model.test(test_loader)
+        _, test_accuracy = model.test()
         current_test_accuracy = sum(test_accuracy) / n_test_batches
 
     print(f"Epoch {epoch}/{EPOCHS}, time elapsed: {(time.time() - start_ts):.2f}s, training loss:"

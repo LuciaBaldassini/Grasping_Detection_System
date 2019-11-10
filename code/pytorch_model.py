@@ -61,7 +61,7 @@ class OurResnet:
             torch.cuda.empty_cache()
         return total_loss
 
-    def test(self, data_loader):
+    def evaluate(self, data_loader):
         val_losses = []
         accuracies = []
         self.model.eval()
@@ -75,7 +75,10 @@ class OurResnet:
         return val_losses, accuracies
 
     def validate(self):
-        return self.test(self.valid_loader)
+        return self.evaluate(self.valid_loader)
+
+    def test(self):
+        return self.evaluate(self.test_loader)
 
     def save_model(self, path):
         torch.save(self.model.state_dict(), path)
