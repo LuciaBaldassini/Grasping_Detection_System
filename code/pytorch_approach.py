@@ -68,10 +68,10 @@ def train_network(epochs, n_train_batches, n_val_batches, n_test_batches):
 if __name__ == '__main__':
 
     batch_size, epochs, num_workers, test_split, valid_split, test_and_plot = parse_arguments()
-    ROOT_PATH = Path('/home/diego/Documents/RUG/CognitiveRobotics/Grasping_Detection_System')
-    PATH_TO_DATA = ROOT_PATH / 'debug_dataset'
-    # ROOT_PATH = Path('/home/s3736555/Grasping_Detection_System')
-    # PATH_TO_DATA = ROOT_PATH / 'dataset'
+    # ROOT_PATH = Path('/home/diego/Documents/RUG/CognitiveRobotics/Grasping_Detection_System')
+    # PATH_TO_DATA = ROOT_PATH / 'debug_dataset'
+    ROOT_PATH = Path('/home/s3736555/Grasping_Detection_System')
+    PATH_TO_DATA = ROOT_PATH / 'dataset'
     PATH_TO_POS_LABELS = ROOT_PATH / 'labels/pos_labels.csv'
     PATH_TO_OUTPUTS = ROOT_PATH / 'output'
     # Make sure output exists
@@ -134,7 +134,7 @@ if __name__ == '__main__':
                 image = images[i][j]
                 image = de_normalize(image)
                 image = image.numpy().transpose((1, 2, 0))
-                print(f"Predicted rectangles {rect}")
+                # print(f"Predicted rectangles {rect}")
                 plot_image(image, rect)
 
     else:

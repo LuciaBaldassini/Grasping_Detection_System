@@ -88,7 +88,7 @@ class OurResnet:
             for i, data in enumerate(data_loader):
                 X, y = data['image'].to(self.device), data['rectangle'].to(self.device)
                 outputs = self.model(X)  # this get's the prediction from the network
-                print(f"predicted: {outputs}, label: {y}")
+                # print(f"predicted: {outputs}, label: {y}")
                 predictions.append(outputs)
                 images.append(X)
         return images, predictions
