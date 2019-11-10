@@ -1,9 +1,11 @@
+import inspect
 import time
 from pathlib import Path
 
 import torchvision
 from torch import nn, optim
 import torch
+from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
 
 
 class ResNet18(nn.Module):
@@ -26,9 +28,8 @@ class ResNet18(nn.Module):
 
 
 class OurResnet:
-    def __init__(self, dest_path, epochs, train_loader, valid_loader, test_loader, pre_trained=True, **kwargs):
+    def __init__(self, dest_path, train_loader, valid_loader, test_loader, pre_trained=True, **kwargs):
         self.dest_path = dest_path
-        self.epochs = epochs
         self.train_loader, self.valid_loader, self.test_loader = train_loader, valid_loader, test_loader
         self.model = ResNet18(pre_trained=pre_trained)
         self.loss_function = nn.MSELoss()
@@ -38,41 +39,71 @@ class OurResnet:
         self.cuda_available = torch.cuda.is_available()
 
     def train(self):
-        start_ts = time.time()
+        total_loss = 0
+        self.model.train()
+        if self.cuda_available:
+            self.model.cuda()
+        for i, data in enumerate(self.train_loader):
+            X, y = data[0].to(self.device), data[1].to(self.device)
+            # training step for single batch
+            self.model.zero_grad()
+            outputs = self.model(X)
 
-        metrics = []
-        batches = len(self.train_loader)
-        val_batches = len(self.valid_loader)
-        test_batches = len(self.test_loader)
-        print("batches: {}, val_batches: {}, test_batches: {}".format(batches, val_batches, test_batches))
-        best_val_accuracy = 0
-        current_test_accuracy = 0
+            loss = self.loss_function(outputs, y)
+            loss.backward()
+            self.optimizer.step()
 
-        for epoch in range(self.epochs):
-            total_loss = self.train()
-            val_losses, precision, recall, f1, accuracy = self.validate(self.valid_loader)
+            # getting training quality data
+            current_loss = loss.item()
+            total_loss += current_loss
 
-            if sum(accuracy) / val_batches > best_val_accuracy:
-                best_val_accuracy = sum(accuracy) / val_batches
-                if self.dest_path:
-                    self.save_model(self.dest_path)
-                _, _, _, _, test_accuracy = self.validate(self.test_loader)
-                current_test_accuracy = sum(test_accuracy) / test_batches
+        # releasing unceseccary memory in GPU
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+        return total_loss
 
-            print(
-                f"Epoch {epoch + 1}/{self.epochs}, training loss: {total_loss / batches}, validation loss: {val_losses / val_batches}")
-            self.print_scores(precision, recall, f1, accuracy, val_batches)
-            print(f"\t{'current test accuracy'.rjust(14, ' ')}: {current_test_accuracy:.4f}")
+    def test(self, data_loader):
+        val_losses = 0
+        precision, recall, f1, accuracy = [], [], [], []
+        self.model.eval()
+        with torch.no_grad():
+            for i, data in enumerate(data_loader):
+                X, y = data[0].to(self.device), data[1].to(self.device)
 
-            metrics.append((total_loss / batches, val_losses / val_batches, sum(precision) / val_batches,
-                            sum(recall) / val_batches, sum(f1) / val_batches, sum(accuracy) / val_batches,
-                            current_test_accuracy))  # for plotting learning curve
+                outputs = self.model(X)  # this get's the prediction from the network
 
-        print(f"Training time: {time.time() - start_ts}s")
-        return metrics
+                val_losses += self.loss_function(outputs, y)
+
+                predicted_classes = torch.max(outputs, 1)[1]  # get class from network's prediction
+
+                # TODO: probably here use our own distance function
+                # calculate P/R/F1/A metrics for batch
+                for acc, metric in zip((precision, recall, f1, accuracy),
+                                       (precision_score, recall_score, f1_score, accuracy_score)):
+                    acc.append(self.calculate_metric(metric, y.cpu(), predicted_classes.cpu()))
+        return val_losses, precision, recall, f1, accuracy
+
+    def validate(self):
+        return self.test(self.valid_loader)
+
+    @staticmethod
+    def calculate_metric(metric_fn, true_y, pred_y):
+        # multi class problems need to have averaging method
+        if "average" in inspect.getfullargspec(metric_fn).args:
+            return metric_fn(true_y, pred_y, average="macro")
+        else:
+            return metric_fn(true_y, pred_y)
 
     def save_model(self, path):
         torch.save(self.model.state_dict(), path)
 
     def load_model(self, path):
         self.model.load_state_dict(torch.load(path), strict=False)
+
+    def free(self):
+        del self.model
+        del self.train_loader
+        del self.valid_loader
+        del self.test_loader
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()

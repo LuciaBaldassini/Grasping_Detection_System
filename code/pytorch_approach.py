@@ -80,4 +80,13 @@ model = OurResnet(dest_path=PATH_TO_OUTPUTS,
 print("The final model is")
 print(model.model)
 
+# Training
+EPOCHS = 100
+for epoch in range(1, EPOCHS + 1):
+    model.train()
+    model.validate()
+
+saved_model = PATH_TO_OUTPUTS / 'our_resnet18.pt'
+model.save_model(saved_model)
+
 print("Bye")
