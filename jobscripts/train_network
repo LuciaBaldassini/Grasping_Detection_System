@@ -21,4 +21,4 @@ pip install --upgrade setuptools
 pip install -r requirements.txt
 
 echo "Starting execution"
-python code/train.py
+python code/pytorch_approach.py
