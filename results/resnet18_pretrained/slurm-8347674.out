@@ -1,0 +1,299 @@
+
+The following have been reloaded with a version change:
+  1) CUDA/9.1.85-GCC-6.4.0-2.28 => CUDA/9.1.85
+
+Modules loaded
+
+Currently Loaded Modules:
+  1) GCCcore/6.4.0
+  2) binutils/2.28-GCCcore-6.4.0
+  3) GCC/6.4.0-2.28
+  4) gcccuda/2018a
+  5) numactl/2.0.11-GCCcore-6.4.0
+  6) zlib/1.2.11-GCCcore-6.4.0
+  7) XZ/5.2.3-GCCcore-6.4.0
+  8) libxml2/2.9.7-GCCcore-6.4.0
+  9) libpciaccess/0.14-GCCcore-6.4.0
+ 10) hwloc/1.11.8-GCCcore-6.4.0
+ 11) OpenMPI/2.1.2-gcccuda-2018a
+ 12) OpenBLAS/0.2.20-GCC-6.4.0-2.28
+ 13) gompic/2018a
+ 14) FFTW/3.3.7-gompic-2018a
+ 15) ScaLAPACK/2.0.2-gompic-2018a-OpenBLAS-0.2.20
+ 16) fosscuda/2018a
+ 17) bzip2/1.0.6-GCCcore-6.4.0
+ 18) ncurses/6.0-GCCcore-6.4.0
+ 19) libreadline/7.0-GCCcore-6.4.0
+ 20) Tcl/8.6.8-GCCcore-6.4.0
+ 21) SQLite/3.21.0-GCCcore-6.4.0
+ 22) GMP/6.1.2-GCCcore-6.4.0
+ 23) libffi/3.2.1-GCCcore-6.4.0
+ 24) Python/3.6.4-fosscuda-2018a
+ 25) CUDA/9.1.85
+
+ 
+
+Creating venv
+Requirement already up-to-date: pip in ./venv/lib/python3.6/site-packages (19.3.1)
+Requirement already up-to-date: setuptools in ./venv/lib/python3.6/site-packages (41.6.0)
+Requirement already satisfied: cycler==0.10.0 in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 1)) (0.10.0)
+Requirement already satisfied: decorator==4.4.1 in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 2)) (4.4.1)
+Requirement already satisfied: imageio==2.6.1 in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 3)) (2.6.1)
+Requirement already satisfied: kiwisolver==1.1.0 in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 4)) (1.1.0)
+Requirement already satisfied: matplotlib==3.1.1 in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 5)) (3.1.1)
+Requirement already satisfied: networkx==2.4 in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 6)) (2.4)
+Requirement already satisfied: numpy==1.17.3 in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 7)) (1.17.3)
+Requirement already satisfied: pandas==0.25.3 in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 8)) (0.25.3)
+Requirement already satisfied: Pillow==6.2.1 in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 9)) (6.2.1)
+Requirement already satisfied: pyparsing==2.4.4 in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 10)) (2.4.4)
+Requirement already satisfied: python-dateutil==2.8.1 in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 11)) (2.8.1)
+Requirement already satisfied: pytz==2019.3 in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 12)) (2019.3)
+Requirement already satisfied: PyWavelets==1.1.1 in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 13)) (1.1.1)
+Requirement already satisfied: scikit-image==0.16.2 in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 14)) (0.16.2)
+Requirement already satisfied: scipy==1.3.2 in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 15)) (1.3.2)
+Requirement already satisfied: six==1.13.0 in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 16)) (1.13.0)
+Requirement already satisfied: torch==1.3.1 in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 17)) (1.3.1)
+Requirement already satisfied: torchvision==0.4.2 in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 18)) (0.4.2)
+Requirement already satisfied: setuptools in ./venv/lib/python3.6/site-packages (from kiwisolver==1.1.0->-r requirements.txt (line 4)) (41.6.0)
+Starting execution
+Starting Training
+Epoch 1/200, time elapsed: 57.48s, training loss: 8295.229450871395, validation loss: 837.605712890625 -- validation accuracy: 0.8696255683898926, test accuracy: 0.8675423860549927
+Epoch 2/200, time elapsed: 100.28s, training loss: 643.4665729229267, validation loss: 736.1129150390625 -- validation accuracy: 0.8780757188796997, test accuracy: 0.8761532306671143
+Epoch 3/200, time elapsed: 139.09s, training loss: 602.8002305250901, validation loss: 805.33349609375 -- validation accuracy: 0.8723185658454895, test accuracy: 0.8761532306671143
+Epoch 4/200, time elapsed: 177.87s, training loss: 593.3558354304387, validation loss: 1178.50439453125 -- validation accuracy: 0.8298494815826416, test accuracy: 0.8761532306671143
+Epoch 5/200, time elapsed: 216.63s, training loss: 586.7499305138222, validation loss: 793.8706665039062 -- validation accuracy: 0.8673697710037231, test accuracy: 0.8761532306671143
+Epoch 6/200, time elapsed: 255.31s, training loss: 580.992782827524, validation loss: 696.6981201171875 -- validation accuracy: 0.8772053718566895, test accuracy: 0.8761532306671143
+Epoch 7/200, time elapsed: 294.06s, training loss: 578.8811368502103, validation loss: 1451.79052734375 -- validation accuracy: 0.8093861937522888, test accuracy: 0.8761532306671143
+Epoch 8/200, time elapsed: 332.90s, training loss: 572.385832801232, validation loss: 720.3795776367188 -- validation accuracy: 0.870173454284668, test accuracy: 0.8761532306671143
+Epoch 9/200, time elapsed: 375.64s, training loss: 574.0978323129507, validation loss: 605.2821044921875 -- validation accuracy: 0.8850544095039368, test accuracy: 0.8798059821128845
+Epoch 10/200, time elapsed: 414.40s, training loss: 576.2910822941707, validation loss: 645.6101684570312 -- validation accuracy: 0.8763554692268372, test accuracy: 0.8798059821128845
+Epoch 11/200, time elapsed: 453.32s, training loss: 574.6044217623197, validation loss: 1073.1590576171875 -- validation accuracy: 0.8376862406730652, test accuracy: 0.8798059821128845
+Epoch 12/200, time elapsed: 492.14s, training loss: 569.8611182579627, validation loss: 833.4822387695312 -- validation accuracy: 0.858597993850708, test accuracy: 0.8798059821128845
+Epoch 13/200, time elapsed: 531.04s, training loss: 564.6974430964543, validation loss: 678.2778930664062 -- validation accuracy: 0.8783586621284485, test accuracy: 0.8798059821128845
+Epoch 14/200, time elapsed: 569.80s, training loss: 552.663276554988, validation loss: 634.30810546875 -- validation accuracy: 0.8792645931243896, test accuracy: 0.8798059821128845
+Epoch 15/200, time elapsed: 612.65s, training loss: 472.5992985652043, validation loss: 472.8763122558594 -- validation accuracy: 0.8948253393173218, test accuracy: 0.8929766416549683
+Epoch 16/200, time elapsed: 655.54s, training loss: 408.4659503643329, validation loss: 463.9832458496094 -- validation accuracy: 0.895532488822937, test accuracy: 0.8961287140846252
+Epoch 17/200, time elapsed: 698.42s, training loss: 380.1831289438101, validation loss: 391.8700256347656 -- validation accuracy: 0.9057213068008423, test accuracy: 0.9044116139411926
+Epoch 18/200, time elapsed: 737.25s, training loss: 366.72102426382213, validation loss: 466.8457336425781 -- validation accuracy: 0.8940009474754333, test accuracy: 0.9044116139411926
+Epoch 19/200, time elapsed: 780.18s, training loss: 374.7808091383714, validation loss: 389.11737060546875 -- validation accuracy: 0.9060105085372925, test accuracy: 0.9067580699920654
+Epoch 20/200, time elapsed: 819.04s, training loss: 357.8256112905649, validation loss: 424.2301025390625 -- validation accuracy: 0.8980423212051392, test accuracy: 0.9067580699920654
+Epoch 21/200, time elapsed: 857.81s, training loss: 357.4124239408053, validation loss: 443.49609375 -- validation accuracy: 0.8990463018417358, test accuracy: 0.9067580699920654
+Epoch 22/200, time elapsed: 896.55s, training loss: 358.7629150390625, validation loss: 395.1903991699219 -- validation accuracy: 0.9045141935348511, test accuracy: 0.9067580699920654
+Epoch 23/200, time elapsed: 935.39s, training loss: 355.90540912334734, validation loss: 388.61590576171875 -- validation accuracy: 0.9048553705215454, test accuracy: 0.9067580699920654
+Epoch 24/200, time elapsed: 974.17s, training loss: 357.5268991323618, validation loss: 671.0447998046875 -- validation accuracy: 0.8740003108978271, test accuracy: 0.9067580699920654
+Epoch 25/200, time elapsed: 1017.31s, training loss: 350.2277782733624, validation loss: 379.19268798828125 -- validation accuracy: 0.9080549478530884, test accuracy: 0.9080413579940796
+Epoch 26/200, time elapsed: 1056.08s, training loss: 356.9689716045673, validation loss: 412.7227478027344 -- validation accuracy: 0.900810182094574, test accuracy: 0.9080413579940796
+Epoch 27/200, time elapsed: 1094.94s, training loss: 361.80099722055286, validation loss: 527.121337890625 -- validation accuracy: 0.8859617114067078, test accuracy: 0.9080413579940796
+Epoch 28/200, time elapsed: 1133.63s, training loss: 345.8165517953726, validation loss: 391.8651123046875 -- validation accuracy: 0.9056344628334045, test accuracy: 0.9080413579940796
+Epoch 29/200, time elapsed: 1172.57s, training loss: 350.3823042649489, validation loss: 383.0088806152344 -- validation accuracy: 0.9054183959960938, test accuracy: 0.9080413579940796
+Epoch 30/200, time elapsed: 1211.37s, training loss: 344.2127746582031, validation loss: 401.52618408203125 -- validation accuracy: 0.9004845023155212, test accuracy: 0.9080413579940796
+Epoch 31/200, time elapsed: 1250.13s, training loss: 345.2946709266076, validation loss: 540.8217163085938 -- validation accuracy: 0.8819155693054199, test accuracy: 0.9080413579940796
+Epoch 32/200, time elapsed: 1288.94s, training loss: 347.5502920297476, validation loss: 403.4555969238281 -- validation accuracy: 0.903883159160614, test accuracy: 0.9080413579940796
+Epoch 33/200, time elapsed: 1327.77s, training loss: 342.48526188777043, validation loss: 423.85791015625 -- validation accuracy: 0.90027916431427, test accuracy: 0.9080413579940796
+Epoch 34/200, time elapsed: 1366.68s, training loss: 341.14779264009917, validation loss: 437.27587890625 -- validation accuracy: 0.9008802175521851, test accuracy: 0.9080413579940796
+Epoch 35/200, time elapsed: 1405.54s, training loss: 338.03297659067005, validation loss: 487.3178405761719 -- validation accuracy: 0.8907838463783264, test accuracy: 0.9080413579940796
+Epoch 36/200, time elapsed: 1444.29s, training loss: 345.6536902794471, validation loss: 388.93798828125 -- validation accuracy: 0.9068129062652588, test accuracy: 0.9080413579940796
+Epoch 37/200, time elapsed: 1483.22s, training loss: 343.8276155911959, validation loss: 433.97967529296875 -- validation accuracy: 0.9005974531173706, test accuracy: 0.9080413579940796
+Epoch 38/200, time elapsed: 1522.15s, training loss: 341.1323469895583, validation loss: 425.8911437988281 -- validation accuracy: 0.9003561735153198, test accuracy: 0.9080413579940796
+Epoch 39/200, time elapsed: 1561.10s, training loss: 337.3675771859976, validation loss: 368.6045227050781 -- validation accuracy: 0.9073752164840698, test accuracy: 0.9080413579940796
+Epoch 40/200, time elapsed: 1600.08s, training loss: 344.59895888108474, validation loss: 677.32275390625 -- validation accuracy: 0.8664289712905884, test accuracy: 0.9080413579940796
+Epoch 41/200, time elapsed: 1639.04s, training loss: 336.54679800180287, validation loss: 406.5587463378906 -- validation accuracy: 0.9060149192810059, test accuracy: 0.9080413579940796
+Epoch 42/200, time elapsed: 1682.32s, training loss: 339.7311016376202, validation loss: 376.21337890625 -- validation accuracy: 0.908286988735199, test accuracy: 0.9060060381889343
+Epoch 43/200, time elapsed: 1721.20s, training loss: 337.5139901968149, validation loss: 370.8264465332031 -- validation accuracy: 0.9073633551597595, test accuracy: 0.9060060381889343
+Epoch 44/200, time elapsed: 1760.17s, training loss: 345.51965965857875, validation loss: 618.4619750976562 -- validation accuracy: 0.8740871548652649, test accuracy: 0.9060060381889343
+Epoch 45/200, time elapsed: 1799.07s, training loss: 338.9803537222055, validation loss: 460.26800537109375 -- validation accuracy: 0.8942884802818298, test accuracy: 0.9060060381889343
+Epoch 46/200, time elapsed: 1838.02s, training loss: 336.29208186222957, validation loss: 379.837646484375 -- validation accuracy: 0.9059065580368042, test accuracy: 0.9060060381889343
+Epoch 47/200, time elapsed: 1877.13s, training loss: 343.29774897648736, validation loss: 471.5213623046875 -- validation accuracy: 0.8951950669288635, test accuracy: 0.9060060381889343
+Epoch 48/200, time elapsed: 1916.02s, training loss: 345.09905207707334, validation loss: 464.5996398925781 -- validation accuracy: 0.8933426141738892, test accuracy: 0.9060060381889343
+Epoch 49/200, time elapsed: 1954.99s, training loss: 334.4472395676833, validation loss: 439.16607666015625 -- validation accuracy: 0.8966798782348633, test accuracy: 0.9060060381889343
+Epoch 50/200, time elapsed: 1994.08s, training loss: 330.982468355619, validation loss: 387.435546875 -- validation accuracy: 0.9069697856903076, test accuracy: 0.9060060381889343
+Epoch 51/200, time elapsed: 2033.01s, training loss: 339.69620924729566, validation loss: 390.359619140625 -- validation accuracy: 0.9054761528968811, test accuracy: 0.9060060381889343
+Epoch 52/200, time elapsed: 2072.00s, training loss: 339.36405686598556, validation loss: 391.1281433105469 -- validation accuracy: 0.9045489430427551, test accuracy: 0.9060060381889343
+Epoch 53/200, time elapsed: 2111.04s, training loss: 337.7005880502554, validation loss: 387.00579833984375 -- validation accuracy: 0.9042232632637024, test accuracy: 0.9060060381889343
+Epoch 54/200, time elapsed: 2150.03s, training loss: 331.7477093036358, validation loss: 404.31219482421875 -- validation accuracy: 0.9044795036315918, test accuracy: 0.9060060381889343
+Epoch 55/200, time elapsed: 2188.95s, training loss: 343.57047001765324, validation loss: 393.48297119140625 -- validation accuracy: 0.904664158821106, test accuracy: 0.9060060381889343
+Epoch 56/200, time elapsed: 2227.88s, training loss: 342.39896404559795, validation loss: 387.8199768066406 -- validation accuracy: 0.9036529064178467, test accuracy: 0.9060060381889343
+Epoch 57/200, time elapsed: 2266.75s, training loss: 337.1659212552584, validation loss: 372.51568603515625 -- validation accuracy: 0.9073078632354736, test accuracy: 0.9060060381889343
+Epoch 58/200, time elapsed: 2305.65s, training loss: 336.87181279109075, validation loss: 419.7615051269531 -- validation accuracy: 0.9012188911437988, test accuracy: 0.9060060381889343
+Epoch 59/200, time elapsed: 2344.59s, training loss: 326.161776968149, validation loss: 419.74713134765625 -- validation accuracy: 0.9028356671333313, test accuracy: 0.9060060381889343
+Epoch 60/200, time elapsed: 2387.53s, training loss: 321.78634549654447, validation loss: 355.192138671875 -- validation accuracy: 0.9095562100410461, test accuracy: 0.9081639647483826
+Epoch 61/200, time elapsed: 2426.47s, training loss: 305.3972869873047, validation loss: 413.7161865234375 -- validation accuracy: 0.9001452922821045, test accuracy: 0.9081639647483826
+Epoch 62/200, time elapsed: 2465.35s, training loss: 304.7718076265775, validation loss: 391.62518310546875 -- validation accuracy: 0.9052461981773376, test accuracy: 0.9081639647483826
+Epoch 63/200, time elapsed: 2508.35s, training loss: 291.9483907846304, validation loss: 340.10791015625 -- validation accuracy: 0.9137421250343323, test accuracy: 0.9090715050697327
+Epoch 64/200, time elapsed: 2547.26s, training loss: 296.3691227839543, validation loss: 425.5285339355469 -- validation accuracy: 0.9020246267318726, test accuracy: 0.9090715050697327
+Epoch 65/200, time elapsed: 2586.20s, training loss: 278.7639331524189, validation loss: 365.1007995605469 -- validation accuracy: 0.9117162227630615, test accuracy: 0.9090715050697327
+Epoch 66/200, time elapsed: 2625.23s, training loss: 280.7621276855469, validation loss: 357.010498046875 -- validation accuracy: 0.9131399989128113, test accuracy: 0.9090715050697327
+Epoch 67/200, time elapsed: 2668.13s, training loss: 280.9014131986178, validation loss: 323.0773620605469 -- validation accuracy: 0.9192274212837219, test accuracy: 0.9146561622619629
+Epoch 68/200, time elapsed: 2707.13s, training loss: 276.83340125450724, validation loss: 337.310302734375 -- validation accuracy: 0.9152706265449524, test accuracy: 0.9146561622619629
+Epoch 69/200, time elapsed: 2746.05s, training loss: 268.1523249699519, validation loss: 349.0433654785156 -- validation accuracy: 0.9154966473579407, test accuracy: 0.9146561622619629
+Epoch 70/200, time elapsed: 2784.95s, training loss: 274.95560678335335, validation loss: 350.9352111816406 -- validation accuracy: 0.9120383262634277, test accuracy: 0.9146561622619629
+Epoch 71/200, time elapsed: 2823.82s, training loss: 265.44918165940504, validation loss: 337.3878479003906 -- validation accuracy: 0.91697758436203, test accuracy: 0.9146561622619629
+Epoch 72/200, time elapsed: 2862.70s, training loss: 268.3020080566406, validation loss: 319.67510986328125 -- validation accuracy: 0.9180847406387329, test accuracy: 0.9146561622619629
+Epoch 73/200, time elapsed: 2901.57s, training loss: 265.77967059795674, validation loss: 334.4254150390625 -- validation accuracy: 0.9172164797782898, test accuracy: 0.9146561622619629
+Epoch 74/200, time elapsed: 2940.52s, training loss: 269.4736121544471, validation loss: 329.84228515625 -- validation accuracy: 0.9181638956069946, test accuracy: 0.9146561622619629
+Epoch 75/200, time elapsed: 2979.64s, training loss: 268.20560467059795, validation loss: 333.4350280761719 -- validation accuracy: 0.9174354672431946, test accuracy: 0.9146561622619629
+Epoch 76/200, time elapsed: 3018.67s, training loss: 268.74985750638524, validation loss: 398.143310546875 -- validation accuracy: 0.9052220582962036, test accuracy: 0.9146561622619629
+Epoch 77/200, time elapsed: 3057.58s, training loss: 268.4334951547476, validation loss: 373.6728820800781 -- validation accuracy: 0.9105427265167236, test accuracy: 0.9146561622619629
+Epoch 78/200, time elapsed: 3096.38s, training loss: 273.3599456787109, validation loss: 374.5971984863281 -- validation accuracy: 0.9090931415557861, test accuracy: 0.9146561622619629
+Epoch 79/200, time elapsed: 3140.15s, training loss: 266.37137920673075, validation loss: 332.94256591796875 -- validation accuracy: 0.9193322062492371, test accuracy: 0.9158518314361572
+Epoch 80/200, time elapsed: 3178.93s, training loss: 260.4020789513221, validation loss: 395.881103515625 -- validation accuracy: 0.909095823764801, test accuracy: 0.9158518314361572
+Epoch 81/200, time elapsed: 3217.70s, training loss: 268.51568415715144, validation loss: 334.26678466796875 -- validation accuracy: 0.9187352061271667, test accuracy: 0.9158518314361572
+Epoch 82/200, time elapsed: 3256.46s, training loss: 269.4756352351262, validation loss: 329.02642822265625 -- validation accuracy: 0.9187296628952026, test accuracy: 0.9158518314361572
+Epoch 83/200, time elapsed: 3295.47s, training loss: 273.15056081918567, validation loss: 361.2763671875 -- validation accuracy: 0.9128108620643616, test accuracy: 0.9158518314361572
+Epoch 84/200, time elapsed: 3338.48s, training loss: 260.6506507286659, validation loss: 318.62554931640625 -- validation accuracy: 0.9195700883865356, test accuracy: 0.9125540256500244
+Epoch 85/200, time elapsed: 3377.29s, training loss: 262.9805441049429, validation loss: 329.798095703125 -- validation accuracy: 0.9169316291809082, test accuracy: 0.9125540256500244
+Epoch 86/200, time elapsed: 3416.12s, training loss: 272.69778935359074, validation loss: 360.0934753417969 -- validation accuracy: 0.9148744940757751, test accuracy: 0.9125540256500244
+Epoch 87/200, time elapsed: 3454.92s, training loss: 266.4584991455078, validation loss: 354.5779113769531 -- validation accuracy: 0.9123933911323547, test accuracy: 0.9125540256500244
+Epoch 88/200, time elapsed: 3497.71s, training loss: 261.37003220778246, validation loss: 324.7502136230469 -- validation accuracy: 0.9199278950691223, test accuracy: 0.916030764579773
+Epoch 89/200, time elapsed: 3536.45s, training loss: 268.04401151216945, validation loss: 336.69061279296875 -- validation accuracy: 0.9157311916351318, test accuracy: 0.916030764579773
+Epoch 90/200, time elapsed: 3575.32s, training loss: 271.1163935734676, validation loss: 418.49169921875 -- validation accuracy: 0.9015151858329773, test accuracy: 0.916030764579773
+Epoch 91/200, time elapsed: 3618.16s, training loss: 264.90582064115085, validation loss: 330.50494384765625 -- validation accuracy: 0.9199492931365967, test accuracy: 0.9153302907943726
+Epoch 92/200, time elapsed: 3657.31s, training loss: 260.8487419715294, validation loss: 333.2912292480469 -- validation accuracy: 0.9178878664970398, test accuracy: 0.9153302907943726
+Epoch 93/200, time elapsed: 3696.03s, training loss: 258.1276033841647, validation loss: 338.56689453125 -- validation accuracy: 0.9183405637741089, test accuracy: 0.9153302907943726
+Epoch 94/200, time elapsed: 3734.81s, training loss: 259.3658757136418, validation loss: 351.93756103515625 -- validation accuracy: 0.9172283411026001, test accuracy: 0.9153302907943726
+Epoch 95/200, time elapsed: 3773.96s, training loss: 255.50032606858474, validation loss: 335.77734375 -- validation accuracy: 0.9185613989830017, test accuracy: 0.9153302907943726
+Epoch 96/200, time elapsed: 3812.80s, training loss: 256.93502267690803, validation loss: 322.59124755859375 -- validation accuracy: 0.9191117286682129, test accuracy: 0.9153302907943726
+Epoch 97/200, time elapsed: 3851.50s, training loss: 263.48104975773737, validation loss: 362.7642822265625 -- validation accuracy: 0.9161850810050964, test accuracy: 0.9153302907943726
+Epoch 98/200, time elapsed: 3890.25s, training loss: 268.1610858623798, validation loss: 341.4366149902344 -- validation accuracy: 0.9156169891357422, test accuracy: 0.9153302907943726
+Epoch 99/200, time elapsed: 3929.37s, training loss: 263.1695049579327, validation loss: 353.44244384765625 -- validation accuracy: 0.9140602350234985, test accuracy: 0.9153302907943726
+Epoch 100/200, time elapsed: 3968.14s, training loss: 260.9798384446364, validation loss: 322.99127197265625 -- validation accuracy: 0.9191917777061462, test accuracy: 0.9153302907943726
+Epoch 101/200, time elapsed: 4006.86s, training loss: 260.3053973858173, validation loss: 330.10089111328125 -- validation accuracy: 0.9185773730278015, test accuracy: 0.9153302907943726
+Epoch 102/200, time elapsed: 4049.76s, training loss: 263.5989964411809, validation loss: 322.7416076660156 -- validation accuracy: 0.9200471043586731, test accuracy: 0.9163749814033508
+Epoch 103/200, time elapsed: 4088.34s, training loss: 255.8757082425631, validation loss: 329.0751037597656 -- validation accuracy: 0.9181207418441772, test accuracy: 0.9163749814033508
+Epoch 104/200, time elapsed: 4131.09s, training loss: 257.859756234976, validation loss: 310.84619140625 -- validation accuracy: 0.9205862283706665, test accuracy: 0.9143275618553162
+Epoch 105/200, time elapsed: 4173.77s, training loss: 254.68072204589845, validation loss: 320.3414306640625 -- validation accuracy: 0.9209365248680115, test accuracy: 0.916053831577301
+Epoch 106/200, time elapsed: 4216.63s, training loss: 259.5355241041917, validation loss: 317.5603332519531 -- validation accuracy: 0.9217737913131714, test accuracy: 0.915880024433136
+Epoch 107/200, time elapsed: 4255.39s, training loss: 265.3105182354267, validation loss: 343.1693115234375 -- validation accuracy: 0.9168033599853516, test accuracy: 0.915880024433136
+Epoch 108/200, time elapsed: 4294.07s, training loss: 260.2327833909255, validation loss: 333.5150451660156 -- validation accuracy: 0.9166562557220459, test accuracy: 0.915880024433136
+Epoch 109/200, time elapsed: 4332.81s, training loss: 264.9297738882212, validation loss: 381.1963195800781 -- validation accuracy: 0.9118804335594177, test accuracy: 0.915880024433136
+Epoch 110/200, time elapsed: 4371.96s, training loss: 265.3114248422476, validation loss: 339.69805908203125 -- validation accuracy: 0.9150341153144836, test accuracy: 0.915880024433136
+Epoch 111/200, time elapsed: 4410.65s, training loss: 259.21190162071815, validation loss: 347.4661560058594 -- validation accuracy: 0.9160255789756775, test accuracy: 0.915880024433136
+Epoch 112/200, time elapsed: 4449.41s, training loss: 265.8161315917969, validation loss: 333.4176940917969 -- validation accuracy: 0.9187024831771851, test accuracy: 0.915880024433136
+Epoch 113/200, time elapsed: 4488.07s, training loss: 258.19381925142727, validation loss: 360.2390441894531 -- validation accuracy: 0.9142605066299438, test accuracy: 0.915880024433136
+Epoch 114/200, time elapsed: 4526.67s, training loss: 258.2761934720553, validation loss: 341.61822509765625 -- validation accuracy: 0.9180284142494202, test accuracy: 0.915880024433136
+Epoch 115/200, time elapsed: 4569.50s, training loss: 255.9227576622596, validation loss: 300.5317687988281 -- validation accuracy: 0.9235856533050537, test accuracy: 0.9161829352378845
+Epoch 116/200, time elapsed: 4608.26s, training loss: 272.62682377741885, validation loss: 387.5465393066406 -- validation accuracy: 0.9105669260025024, test accuracy: 0.9161829352378845
+Epoch 117/200, time elapsed: 4646.98s, training loss: 257.9722365159255, validation loss: 318.7741394042969 -- validation accuracy: 0.9214087128639221, test accuracy: 0.9161829352378845
+Epoch 118/200, time elapsed: 4685.74s, training loss: 256.8099851168119, validation loss: 320.4981384277344 -- validation accuracy: 0.9220671057701111, test accuracy: 0.9161829352378845
+Epoch 119/200, time elapsed: 4724.49s, training loss: 255.1537109375, validation loss: 313.2252197265625 -- validation accuracy: 0.9211848974227905, test accuracy: 0.9161829352378845
+Epoch 120/200, time elapsed: 4763.14s, training loss: 261.1184884878305, validation loss: 334.77081298828125 -- validation accuracy: 0.9189621210098267, test accuracy: 0.9161829352378845
+Epoch 121/200, time elapsed: 4801.75s, training loss: 259.1147428072416, validation loss: 335.005126953125 -- validation accuracy: 0.9177283644676208, test accuracy: 0.9161829352378845
+Epoch 122/200, time elapsed: 4840.48s, training loss: 269.07060969426084, validation loss: 354.65625 -- validation accuracy: 0.9136688709259033, test accuracy: 0.9161829352378845
+Epoch 123/200, time elapsed: 4879.29s, training loss: 258.20106412447416, validation loss: 373.2724914550781 -- validation accuracy: 0.9127868413925171, test accuracy: 0.9161829352378845
+Epoch 124/200, time elapsed: 4917.95s, training loss: 261.13003328763523, validation loss: 327.06414794921875 -- validation accuracy: 0.9204882383346558, test accuracy: 0.9161829352378845
+Epoch 125/200, time elapsed: 4956.58s, training loss: 258.1848848783053, validation loss: 350.560302734375 -- validation accuracy: 0.915185809135437, test accuracy: 0.9161829352378845
+Epoch 126/200, time elapsed: 4995.33s, training loss: 258.87657588078423, validation loss: 329.59991455078125 -- validation accuracy: 0.9193578958511353, test accuracy: 0.9161829352378845
+Epoch 127/200, time elapsed: 5034.23s, training loss: 255.83656757061297, validation loss: 344.18939208984375 -- validation accuracy: 0.9178589582443237, test accuracy: 0.9161829352378845
+Epoch 128/200, time elapsed: 5072.93s, training loss: 262.0763385479267, validation loss: 418.3979797363281 -- validation accuracy: 0.9055485129356384, test accuracy: 0.9161829352378845
+Epoch 129/200, time elapsed: 5111.59s, training loss: 258.0316396859976, validation loss: 401.3521423339844 -- validation accuracy: 0.9058078527450562, test accuracy: 0.9161829352378845
+Epoch 130/200, time elapsed: 5150.29s, training loss: 260.5893970196064, validation loss: 404.1217956542969 -- validation accuracy: 0.9061580300331116, test accuracy: 0.9161829352378845
+Epoch 131/200, time elapsed: 5189.06s, training loss: 255.59976642315203, validation loss: 319.0819396972656 -- validation accuracy: 0.9221790432929993, test accuracy: 0.9161829352378845
+Epoch 132/200, time elapsed: 5227.63s, training loss: 255.978756244366, validation loss: 417.2270202636719 -- validation accuracy: 0.9043473601341248, test accuracy: 0.9161829352378845
+Epoch 133/200, time elapsed: 5266.27s, training loss: 257.11844951923075, validation loss: 382.0202331542969 -- validation accuracy: 0.9094645977020264, test accuracy: 0.9161829352378845
+Epoch 134/200, time elapsed: 5304.86s, training loss: 257.8342693622296, validation loss: 328.76220703125 -- validation accuracy: 0.9197230935096741, test accuracy: 0.9161829352378845
+Epoch 135/200, time elapsed: 5343.78s, training loss: 254.12383986253005, validation loss: 408.9643249511719 -- validation accuracy: 0.9043529629707336, test accuracy: 0.9161829352378845
+Epoch 136/200, time elapsed: 5382.40s, training loss: 261.1419224665715, validation loss: 328.45989990234375 -- validation accuracy: 0.9212276339530945, test accuracy: 0.9161829352378845
+Epoch 137/200, time elapsed: 5420.97s, training loss: 256.7977020263672, validation loss: 372.6903991699219 -- validation accuracy: 0.9120257496833801, test accuracy: 0.9161829352378845
+Epoch 138/200, time elapsed: 5459.57s, training loss: 255.7672135573167, validation loss: 316.9246826171875 -- validation accuracy: 0.9206373691558838, test accuracy: 0.9161829352378845
+Epoch 139/200, time elapsed: 5498.44s, training loss: 262.7880739652193, validation loss: 314.8211975097656 -- validation accuracy: 0.9212924242019653, test accuracy: 0.9161829352378845
+Epoch 140/200, time elapsed: 5537.16s, training loss: 251.41113915076622, validation loss: 320.9569396972656 -- validation accuracy: 0.918884813785553, test accuracy: 0.9161829352378845
+Epoch 141/200, time elapsed: 5575.87s, training loss: 251.77890906700722, validation loss: 342.4933776855469 -- validation accuracy: 0.915690541267395, test accuracy: 0.9161829352378845
+Epoch 142/200, time elapsed: 5614.53s, training loss: 261.72474247859077, validation loss: 364.28729248046875 -- validation accuracy: 0.9152334928512573, test accuracy: 0.9161829352378845
+Epoch 143/200, time elapsed: 5653.27s, training loss: 256.7890702467698, validation loss: 339.2320251464844 -- validation accuracy: 0.9186111688613892, test accuracy: 0.9161829352378845
+Epoch 144/200, time elapsed: 5691.92s, training loss: 256.7472902738131, validation loss: 344.28582763671875 -- validation accuracy: 0.9153798818588257, test accuracy: 0.9161829352378845
+Epoch 145/200, time elapsed: 5730.58s, training loss: 250.6893514779898, validation loss: 350.1054382324219 -- validation accuracy: 0.9167330265045166, test accuracy: 0.9161829352378845
+Epoch 146/200, time elapsed: 5769.25s, training loss: 252.93850801908053, validation loss: 306.9146728515625 -- validation accuracy: 0.9216452836990356, test accuracy: 0.9161829352378845
+Epoch 147/200, time elapsed: 5807.95s, training loss: 256.1701916034405, validation loss: 371.6289978027344 -- validation accuracy: 0.9120470285415649, test accuracy: 0.9161829352378845
+Epoch 148/200, time elapsed: 5846.61s, training loss: 255.8421323336088, validation loss: 414.8226013183594 -- validation accuracy: 0.9048585295677185, test accuracy: 0.9161829352378845
+Epoch 149/200, time elapsed: 5885.43s, training loss: 264.6542271540715, validation loss: 517.6134643554688 -- validation accuracy: 0.8965529203414917, test accuracy: 0.9161829352378845
+Epoch 150/200, time elapsed: 5924.26s, training loss: 258.24224947415865, validation loss: 424.6448059082031 -- validation accuracy: 0.9015403389930725, test accuracy: 0.9161829352378845
+Epoch 151/200, time elapsed: 5963.22s, training loss: 260.12855670635514, validation loss: 315.31866455078125 -- validation accuracy: 0.9216190576553345, test accuracy: 0.9161829352378845
+Epoch 152/200, time elapsed: 6001.91s, training loss: 254.78229017991285, validation loss: 338.1355285644531 -- validation accuracy: 0.9206932783126831, test accuracy: 0.9161829352378845
+Epoch 153/200, time elapsed: 6040.51s, training loss: 261.74659024752106, validation loss: 371.39495849609375 -- validation accuracy: 0.9160086512565613, test accuracy: 0.9161829352378845
+Epoch 154/200, time elapsed: 6079.13s, training loss: 261.29533221905047, validation loss: 345.9396667480469 -- validation accuracy: 0.9145340323448181, test accuracy: 0.9161829352378845
+Epoch 155/200, time elapsed: 6117.84s, training loss: 252.94932626577523, validation loss: 342.3285217285156 -- validation accuracy: 0.9181101322174072, test accuracy: 0.9161829352378845
+Epoch 156/200, time elapsed: 6156.54s, training loss: 252.61253638634315, validation loss: 304.7933349609375 -- validation accuracy: 0.9233804941177368, test accuracy: 0.9161829352378845
+Epoch 157/200, time elapsed: 6195.36s, training loss: 252.4619368333083, validation loss: 330.6459655761719 -- validation accuracy: 0.9177401661872864, test accuracy: 0.9161829352378845
+Epoch 158/200, time elapsed: 6233.97s, training loss: 254.42303983248198, validation loss: 324.1263122558594 -- validation accuracy: 0.9192930459976196, test accuracy: 0.9161829352378845
+Epoch 159/200, time elapsed: 6276.66s, training loss: 259.940626173753, validation loss: 307.7032470703125 -- validation accuracy: 0.9236403107643127, test accuracy: 0.9168121814727783
+Epoch 160/200, time elapsed: 6315.33s, training loss: 253.4169008695162, validation loss: 333.1824035644531 -- validation accuracy: 0.9208001494407654, test accuracy: 0.9168121814727783
+Epoch 161/200, time elapsed: 6354.11s, training loss: 254.8747816819411, validation loss: 379.9190979003906 -- validation accuracy: 0.9097439646720886, test accuracy: 0.9168121814727783
+Epoch 162/200, time elapsed: 6392.87s, training loss: 250.02542959359977, validation loss: 315.4412841796875 -- validation accuracy: 0.9204651117324829, test accuracy: 0.9168121814727783
+Epoch 163/200, time elapsed: 6431.64s, training loss: 249.64662311260517, validation loss: 351.0152587890625 -- validation accuracy: 0.9187512993812561, test accuracy: 0.9168121814727783
+Epoch 164/200, time elapsed: 6470.33s, training loss: 260.445846088116, validation loss: 319.10162353515625 -- validation accuracy: 0.9198688268661499, test accuracy: 0.9168121814727783
+Epoch 165/200, time elapsed: 6508.96s, training loss: 252.2035414475661, validation loss: 340.28076171875 -- validation accuracy: 0.9186446070671082, test accuracy: 0.9168121814727783
+Epoch 166/200, time elapsed: 6547.69s, training loss: 251.09874478853666, validation loss: 354.65582275390625 -- validation accuracy: 0.9184426665306091, test accuracy: 0.9168121814727783
+Epoch 167/200, time elapsed: 6586.38s, training loss: 248.43792841984674, validation loss: 332.06732177734375 -- validation accuracy: 0.9188722968101501, test accuracy: 0.9168121814727783
+Epoch 168/200, time elapsed: 6625.05s, training loss: 256.31864248422477, validation loss: 350.831787109375 -- validation accuracy: 0.9144764542579651, test accuracy: 0.9168121814727783
+Epoch 169/200, time elapsed: 6663.69s, training loss: 251.70660682091346, validation loss: 322.17510986328125 -- validation accuracy: 0.9208303689956665, test accuracy: 0.9168121814727783
+Epoch 170/200, time elapsed: 6702.28s, training loss: 255.29176330566406, validation loss: 350.0683898925781 -- validation accuracy: 0.9149959087371826, test accuracy: 0.9168121814727783
+Epoch 171/200, time elapsed: 6741.01s, training loss: 250.12069467397836, validation loss: 321.04150390625 -- validation accuracy: 0.92090904712677, test accuracy: 0.9168121814727783
+Epoch 172/200, time elapsed: 6779.85s, training loss: 253.8194821871244, validation loss: 326.5927429199219 -- validation accuracy: 0.9198749661445618, test accuracy: 0.9168121814727783
+Epoch 173/200, time elapsed: 6818.50s, training loss: 255.5157912034255, validation loss: 340.3716735839844 -- validation accuracy: 0.9159942269325256, test accuracy: 0.9168121814727783
+Epoch 174/200, time elapsed: 6857.21s, training loss: 251.65816579965445, validation loss: 347.40875244140625 -- validation accuracy: 0.9164272546768188, test accuracy: 0.9168121814727783
+Epoch 175/200, time elapsed: 6895.95s, training loss: 257.7535606971154, validation loss: 315.9712219238281 -- validation accuracy: 0.9219425320625305, test accuracy: 0.9168121814727783
+Epoch 176/200, time elapsed: 6934.63s, training loss: 252.2732647235577, validation loss: 383.7265319824219 -- validation accuracy: 0.9093385934829712, test accuracy: 0.9168121814727783
+Epoch 177/200, time elapsed: 6973.32s, training loss: 248.5710707444411, validation loss: 337.2747497558594 -- validation accuracy: 0.9184244871139526, test accuracy: 0.9168121814727783
+Epoch 178/200, time elapsed: 7027.54s, training loss: 250.47677354079028, validation loss: 335.0199279785156 -- validation accuracy: 0.9194314479827881, test accuracy: 0.9168121814727783
+Epoch 179/200, time elapsed: 7067.09s, training loss: 250.08184955303486, validation loss: 328.0741882324219 -- validation accuracy: 0.9182889461517334, test accuracy: 0.9168121814727783
+Epoch 180/200, time elapsed: 7105.75s, training loss: 252.39473313551682, validation loss: 313.58526611328125 -- validation accuracy: 0.9220415949821472, test accuracy: 0.9168121814727783
+Epoch 181/200, time elapsed: 7144.63s, training loss: 252.3653109036959, validation loss: 327.6461181640625 -- validation accuracy: 0.9175437688827515, test accuracy: 0.9168121814727783
+Epoch 182/200, time elapsed: 7183.24s, training loss: 247.63031451885516, validation loss: 319.74066162109375 -- validation accuracy: 0.921546459197998, test accuracy: 0.9168121814727783
+Epoch 183/200, time elapsed: 7222.02s, training loss: 250.3252671461839, validation loss: 313.066650390625 -- validation accuracy: 0.9221457839012146, test accuracy: 0.9168121814727783
+Epoch 184/200, time elapsed: 7260.73s, training loss: 256.7909529465895, validation loss: 329.763916015625 -- validation accuracy: 0.9202132821083069, test accuracy: 0.9168121814727783
+Epoch 185/200, time elapsed: 7299.40s, training loss: 250.16553837702824, validation loss: 347.2221984863281 -- validation accuracy: 0.9172565937042236, test accuracy: 0.9168121814727783
+Epoch 186/200, time elapsed: 7338.22s, training loss: 251.38055865948016, validation loss: 338.82806396484375 -- validation accuracy: 0.9193207621574402, test accuracy: 0.9168121814727783
+Epoch 187/200, time elapsed: 7376.89s, training loss: 255.27317387507512, validation loss: 325.9544372558594 -- validation accuracy: 0.9198644757270813, test accuracy: 0.9168121814727783
+Epoch 188/200, time elapsed: 7415.61s, training loss: 250.1215606689453, validation loss: 303.7380065917969 -- validation accuracy: 0.9228114485740662, test accuracy: 0.9168121814727783
+Epoch 189/200, time elapsed: 7454.26s, training loss: 246.81537686861478, validation loss: 345.7167053222656 -- validation accuracy: 0.9168222546577454, test accuracy: 0.9168121814727783
+Epoch 190/200, time elapsed: 7492.87s, training loss: 247.93085632324218, validation loss: 334.5289306640625 -- validation accuracy: 0.9186800718307495, test accuracy: 0.9168121814727783
+Epoch 191/200, time elapsed: 7531.56s, training loss: 248.11126450758715, validation loss: 506.97467041015625 -- validation accuracy: 0.8928917050361633, test accuracy: 0.9168121814727783
+Epoch 192/200, time elapsed: 7570.23s, training loss: 258.80193786621095, validation loss: 347.9502868652344 -- validation accuracy: 0.9194512963294983, test accuracy: 0.9168121814727783
+Epoch 193/200, time elapsed: 7608.91s, training loss: 248.80490065354567, validation loss: 318.7525939941406 -- validation accuracy: 0.9195417761802673, test accuracy: 0.9168121814727783
+Epoch 194/200, time elapsed: 7647.57s, training loss: 248.48394423264725, validation loss: 381.38482666015625 -- validation accuracy: 0.9114288687705994, test accuracy: 0.9168121814727783
+Epoch 195/200, time elapsed: 7686.27s, training loss: 251.6199211707482, validation loss: 327.6578369140625 -- validation accuracy: 0.918580174446106, test accuracy: 0.9168121814727783
+Epoch 196/200, time elapsed: 7725.01s, training loss: 248.49896451509915, validation loss: 329.2674865722656 -- validation accuracy: 0.9187474250793457, test accuracy: 0.9168121814727783
+Epoch 197/200, time elapsed: 7763.65s, training loss: 251.10546405498798, validation loss: 306.2673034667969 -- validation accuracy: 0.9227005839347839, test accuracy: 0.9168121814727783
+Epoch 198/200, time elapsed: 7802.32s, training loss: 250.52511502779447, validation loss: 346.7694396972656 -- validation accuracy: 0.9161583781242371, test accuracy: 0.9168121814727783
+Epoch 199/200, time elapsed: 7841.17s, training loss: 247.61134091890776, validation loss: 336.87664794921875 -- validation accuracy: 0.9192314147949219, test accuracy: 0.9168121814727783
+Epoch 200/200, time elapsed: 7879.79s, training loss: 250.8181351881761, validation loss: 353.9827880859375 -- validation accuracy: 0.9150527119636536, test accuracy: 0.9168121814727783
+Total training time: 7879.79s
+Bye
+
+
+###############################################################################
+Peregrine Cluster
+Job 8347674 for user 's3736555'
+Finished at: Sun Nov 10 21:05:13 CET 2019
+
+Job details:
+============
+
+Name                : train_network
+User                : s3736555
+Partition           : gpu
+Nodes               : pg-gpu16
+Cores               : 12
+State               : COMPLETED
+Submit              : 2019-11-10T18:52:22
+Start               : 2019-11-10T18:52:22
+End                 : 2019-11-10T21:05:13
+Reserved walltime   : 23:55:00
+Used walltime       : 02:12:51
+Used CPU time       : 06:37:15 (efficiency: 24.92%)
+% User (Computation): 67.60%
+% System (I/O)      : 32.40%
+Mem reserved        : 100G/node
+Max Mem used        : 3.93G (pg-gpu16)
+Max Disk Write      : 1.92M (pg-gpu16)
+Max Disk Read       : 29.59M (pg-gpu16)
+
+
+Acknowledgements:
+=================
+
+Please see this page if you want to acknowledge Peregrine in your publications:
+
+https://redmine.hpc.rug.nl/redmine/projects/peregrine/wiki/ScientificOutput
+
+################################################################################

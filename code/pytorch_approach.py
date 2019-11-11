@@ -66,7 +66,7 @@ def train_network(epochs, n_train_batches, n_val_batches, n_test_batches):
 
 if __name__ == '__main__':
 
-    batch_size, epochs, num_workers, test_split, valid_split, test_and_plot = parse_arguments()
+    batch_size, epochs, num_workers, test_split, valid_split, test_and_plot, pre_trained = parse_arguments()
     # ROOT_PATH = Path('/home/diego/Documents/RUG/CognitiveRobotics/Grasping_Detection_System')
     # PATH_TO_DATA = ROOT_PATH / 'debug_dataset'
     ROOT_PATH = Path('/home/s3736555/Grasping_Detection_System')
@@ -81,7 +81,7 @@ if __name__ == '__main__':
     TEST_SPLIT = test_split
     VALIDATION_SPLIT = valid_split
     RANDOM_SEED = 42
-    PRE_TRAINED = True
+    PRE_TRAINED = pre_trained
 
     cpos_labels = pd.read_csv(PATH_TO_POS_LABELS, index_col=0)
 
@@ -125,13 +125,13 @@ if __name__ == '__main__':
 
     if not test_and_plot == "":
         path = Path(test_and_plot)
-        device = torch.device('cpu')
+        device = torch.device('cpu')  # This could be gpu if your computer has one :P
         model.load_model(path, device=device)
         images, predictions = model.get_prediction(test_loader)
         for i, batch in enumerate(predictions):
             for j, rect in enumerate(batch):
                 image = images[i][j]
-                image = de_normalize(image)
+                image = de_normalize(image, PRE_TRAINED)
                 image = image.numpy().transpose((1, 2, 0))
                 # print(f"Predicted rectangles {rect}")
                 plot_image(image, rect)

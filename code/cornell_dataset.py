@@ -81,11 +81,12 @@ class Normalize(object):
         return {'image': image, 'rectangle': rectangle}
 
 
-def de_normalize(image):
+def de_normalize(image, pre_trained=True):
     image = image.clone()
-    dtype = image.dtype
-    mean = torch.as_tensor([0.485, 0.456, 0.406], dtype=dtype, device=image.device)
-    std = torch.as_tensor([0.229, 0.224, 0.225], dtype=dtype, device=image.device)
-    image.mul_(std[:, None, None]).add_(mean[:, None, None])
+    if pre_trained:
+        dtype = image.dtype
+        mean = torch.as_tensor([0.485, 0.456, 0.406], dtype=dtype, device=image.device)
+        std = torch.as_tensor([0.229, 0.224, 0.225], dtype=dtype, device=image.device)
+        image.mul_(std[:, None, None]).add_(mean[:, None, None])
     image = image * 255.0
     return image.int()

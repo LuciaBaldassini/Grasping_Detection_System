@@ -68,9 +68,12 @@ def parse_arguments():
     parser.add_argument('--valid_split', type=int, default=0.1,
                         help='percentage of dataset to use as test set (default: 0.1)')
 
+    parser.add_argument('--pre_trained', type=bool, default=True,
+                        help='If the network was pre-trained in Image-net (default: True)')
+
     parser.add_argument('--test_and_plot', type=str, default="",
                         help='The path to the saved model we want test network and plot rectangles on images ('
                              'default: "")')
     args = parser.parse_args()
     return (args.batch_size, args.epochs, args.num_workers, args.test_split,
-            args.valid_split, args.test_and_plot)
+            args.valid_split, args.test_and_plot, args.pre_trained)
