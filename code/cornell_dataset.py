@@ -3,6 +3,7 @@ from torch.utils.data import Dataset
 import pandas as pd
 from pathlib import Path
 from skimage import io
+from numpy import pi
 
 
 class CornellDataset(Dataset):
@@ -90,3 +91,14 @@ def de_normalize(image, pre_trained=True):
         image.mul_(std[:, None, None]).add_(mean[:, None, None])
     image = image * 255.0
     return image.int()
+
+
+def scale_values(output, up=True):
+    # 'center_x', 'center_y', 'width', 'height', 'angle'
+    scaling_values = [640, 480, 640, 480, 2 * pi]
+    tensor = torch.tensor(scaling_values, device=output.device)
+    if up:
+        # print(f"output={output}, tensor={tensor}, result={torch.mul(output, tensor)}")
+        return torch.mul(output, tensor)
+    else:
+        return torch.div(output, tensor)
