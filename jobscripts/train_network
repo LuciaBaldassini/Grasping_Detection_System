@@ -4,7 +4,7 @@
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:v100:1
 #SBATCH --mem=100GB
-#SBATCH --output=job-%j-resnet18-scale-outside.log
+#SBATCH --output=job-%j-resnet50.log
 #SBATCH --mail-type=FAIL,END
 #SBATCH --mail-user=d.cabo.golvano@student.rug.nl
 
