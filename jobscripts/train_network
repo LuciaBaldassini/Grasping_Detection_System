@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#SBATCH --time=23:55:00
+#SBATCH --partition=gpu
+#SBATCH --gres=gpu:v100:1
+#SBATCH --mem=64GB
+
+module purge
+module load Python/3.6.4-fosscuda-2018a
+module load CUDA/9.1.85
+echo "Modules loaded"
+module list
+
+echo "Creating venv"
+python -m venv venv
+source venv/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
+
+echo "Starting execution"
+python code/train.py
