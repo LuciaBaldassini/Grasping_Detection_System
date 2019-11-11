@@ -35,7 +35,7 @@ def train_network(epochs, n_train_batches, n_val_batches, n_test_batches):
     current_test_accuracy = 0
 
     appendix_datetime = datetime.datetime.now().strftime("%Y-%m-%d_%Hh%Mm")
-    filename = 'our_resnet18_' + appendix_datetime + '.pt'
+    filename = 'our_resnet50_' + appendix_datetime + '.pt'
     saved_model = PATH_TO_OUTPUTS / filename
     filename = 'metrics_' + appendix_datetime
     saved_metrics = PATH_TO_OUTPUTS / filename
