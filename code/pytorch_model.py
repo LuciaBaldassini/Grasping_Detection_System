@@ -23,7 +23,6 @@ class ResNet18(nn.Module):
         x = self.resnet(x)
         x = nn.functional.relu(self.fc1(x))
         x = torch.sigmoid(self.fc_reg(x))
-        x = scale_values(x)
         return x
 
 
@@ -69,7 +68,7 @@ class OurResnet:
             # training step for single batch
             self.model.zero_grad()
             outputs = self.model(X)
-            # outputs = scale_values(outputs)
+            outputs = scale_values(outputs)
             loss = self.loss_function(outputs, y)
             loss.backward()
             self.optimizer.step()
@@ -91,7 +90,7 @@ class OurResnet:
             for i, data in enumerate(data_loader):
                 X, y = data['image'].to(self.device), data['rectangle'].to(self.device)
                 outputs = self.model(X)  # this get's the prediction from the network
-                # outputs = scale_values(outputs)
+                outputs = scale_values(outputs)
                 val_losses.append(self.loss_function(outputs, y))
                 accuracy = calculate_similarity(outputs, y, self.device)
                 accuracies.append(accuracy)
