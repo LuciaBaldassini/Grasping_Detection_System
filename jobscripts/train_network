@@ -22,4 +22,4 @@ pip install --upgrade setuptools
 pip install -r requirements.txt
 
 echo "Starting execution"
-python code/pytorch_approach.py --epochs 200 --batch_size 32 --num_workers 4
+python code/pytorch_approach.py --epochs 200 --batch_size 32 --num_workers 4 --pre_trained True

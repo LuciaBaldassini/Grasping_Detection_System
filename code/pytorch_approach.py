@@ -137,8 +137,8 @@ if __name__ == '__main__':
                 plot_image(image, rect)
 
     else:
-        print(f"Starting Training, batch_size: {batch_size}, epochs: {epochs}, num_workers: {num_workers}, "
-              f"test_split: {test_split}, valid_split: {valid_split}")
+        print(f"Starting Training, pre-trained: {PRE_TRAINED}, batch_size: {batch_size}, epochs: {epochs}, num_workers:"
+              f" {num_workers}, test_split: {test_split}, valid_split: {valid_split}")
         n_train_batches = len(train_loader)
         n_val_batches = len(valid_loader)
         n_test_batches = len(test_loader)

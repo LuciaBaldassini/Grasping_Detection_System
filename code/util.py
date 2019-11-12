@@ -68,7 +68,7 @@ def parse_arguments():
     parser.add_argument('--valid_split', type=int, default=0.1,
                         help='percentage of dataset to use as test set (default: 0.1)')
 
-    parser.add_argument('--pre_trained', type=bool, default=True,
+    parser.add_argument('--pre_trained', type=bool, default=False,
                         help='If the network was pre-trained in Image-net (default: True)')
 
     parser.add_argument('--test_and_plot', type=str, default="",
