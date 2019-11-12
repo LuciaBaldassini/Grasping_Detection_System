@@ -2,6 +2,8 @@ import torch
 import torchvision
 from torch import nn, optim
 import matplotlib.pyplot as plt
+
+from cornell_dataset import scale_values
 from util import calculate_similarity
 
 
@@ -21,7 +23,7 @@ class ResNet18(nn.Module):
     def forward(self, x):
         x = self.resnet(x)
         x = nn.functional.relu(self.fc1(x))
-        x = self.fc_reg(x)
+        x = torch.sigmoid(self.fc_reg(x))
         return x
 
 
@@ -49,8 +51,8 @@ class OurResnet:
     def __init__(self, dest_path, train_loader, valid_loader, test_loader, pre_trained=True, **kwargs):
         self.dest_path = dest_path
         self.train_loader, self.valid_loader, self.test_loader = train_loader, valid_loader, test_loader
-        # self.model = ResNet18(pre_trained=pre_trained)
-        self.model = ResNet50(pre_trained=pre_trained)
+        self.model = ResNet18(pre_trained=pre_trained)
+        # self.model = ResNet50(pre_trained=pre_trained)
         self.loss_function = nn.MSELoss()
         self.optimizer = optim.Adam(self.model.parameters())
         # See if we use CPU or GPU
@@ -65,6 +67,7 @@ class OurResnet:
         for i, data in enumerate(self.train_loader):
             X, y = data['image'].to(self.device), data['rectangle'].to(self.device)
             # training step for single batch
+            y = scale_values(y, 'down')
             self.model.zero_grad()
             outputs = self.model(X)
             loss = self.loss_function(outputs, y)
@@ -88,8 +91,8 @@ class OurResnet:
             for i, data in enumerate(data_loader):
                 X, y = data['image'].to(self.device), data['rectangle'].to(self.device)
                 outputs = self.model(X)  # this get's the prediction from the network
-                val_losses.append(self.loss_function(outputs, y))
-                accuracy = calculate_similarity(outputs, y, self.device)
+                val_losses.append(self.loss_function(outputs, scale_values(y, 'down')))
+                accuracy = calculate_similarity(scale_values(outputs, 'up'), y, self.device)
                 accuracies.append(accuracy)
 
         return val_losses, accuracies
@@ -109,6 +112,7 @@ class OurResnet:
                 X, y = data['image'].to(self.device), data['rectangle'].to(self.device)
                 outputs = self.model(X)  # this get's the prediction from the network
                 # print(f"predicted: {outputs}, label: {y}")
+                outputs = scale_values(outputs, 'up')
                 predictions.append(outputs)
                 images.append(X)
         return images, predictions

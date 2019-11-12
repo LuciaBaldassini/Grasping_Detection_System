@@ -93,12 +93,14 @@ def de_normalize(image, pre_trained=True):
     return image.int()
 
 
-def scale_values(output, up=True):
+def scale_values(output, direction='up'):
     # 'center_x', 'center_y', 'width', 'height', 'angle'
-    scaling_values = [640, 480, 640, 480, 2 * pi]
+    scaling_values = [640.0, 480.0, 640.0, 480.0, 2 * pi]
     tensor = torch.tensor(scaling_values, device=output.device)
-    if up:
+    if direction == 'up':
         # print(f"output={output}, tensor={tensor}, result={torch.mul(output, tensor)}")
         return torch.mul(output, tensor)
-    else:
+    elif direction == 'down':
         return torch.div(output, tensor)
+    else:
+        raise ValueError("direction can only be 'up' or 'down'")
