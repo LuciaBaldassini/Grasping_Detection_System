@@ -43,7 +43,7 @@ class ResNet50(nn.Module):
     def forward(self, x):
         x = self.resnet(x)
         x = nn.functional.relu(self.fc1(x))
-        x = self.fc_reg(x)
+        x = torch.sigmoid(self.fc_reg(x))
         return x
 
 
@@ -51,8 +51,8 @@ class OurResnet:
     def __init__(self, dest_path, train_loader, valid_loader, test_loader, pre_trained=True, **kwargs):
         self.dest_path = dest_path
         self.train_loader, self.valid_loader, self.test_loader = train_loader, valid_loader, test_loader
-        self.model = ResNet18(pre_trained=pre_trained)
-        # self.model = ResNet50(pre_trained=pre_trained)
+        # self.model = ResNet18(pre_trained=pre_trained)
+        self.model = ResNet50(pre_trained=pre_trained)
         self.loss_function = nn.MSELoss()
         self.optimizer = optim.Adam(self.model.parameters())
         # See if we use CPU or GPU
