@@ -5,6 +5,19 @@ import os
 COLORS = {"green": (0, 255, 0), "gray": (120, 120, 120), "red": (0, 0, 255), "blue": (255, 0, 0)}
 
 
+def plot_images_with_rect(images, rectangles):
+    cv.namedWindow("images", cv.WINDOW_NORMAL)
+    for i, image in enumerate(images):
+        p1, p2, p3, p4 = rectangles[i]
+        cv.line(image, tuple(p1.tolist()), tuple(p2.tolist()), COLORS["gray"])
+        cv.line(image, tuple(p2.tolist()), tuple(p3.tolist()), COLORS["green"])
+        cv.line(image, tuple(p3.tolist()), tuple(p4.tolist()), COLORS["gray"])
+        cv.line(image, tuple(p4.tolist()), tuple(p1.tolist()), COLORS["green"])
+        cv.imshow("images", image)
+        cv.waitKey(0)
+    cv.destroyWindow("images")
+
+
 def plot(image, image_name, rectangles=None):
     cv.namedWindow(image_name, cv.WINDOW_NORMAL)
     if rectangles is not None:
@@ -38,7 +51,7 @@ def load_data(data_path):
     for filename in os.listdir(data_path + "/"):
         file_path = data_path + "/" + str(filename)
         if not os.stat(file_path).st_size == 0:
-        
+
             if str(filename).endswith(image_suffix):
                 suffix = str(filename).replace(image_suffix, '')
                 new_row = [suffix, read_image(file_path)]
@@ -59,7 +72,7 @@ def load_data(data_path):
                 if str(filename).endswith(pos_suffix):
                     pos_rectangles = pos_rectangles.append(points, ignore_index=True)
                 else:
-                     neg_rectangles = neg_rectangles.append(points, ignore_index=True)
+                    neg_rectangles = neg_rectangles.append(points, ignore_index=True)
 
     return images, pos_rectangles, neg_rectangles
 

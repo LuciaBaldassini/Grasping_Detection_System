@@ -8,6 +8,12 @@ import pandas as pd
 from utility import load_data, plot
 
 
+def img_df_to_ndarray(df):
+    aux = df['images'].to_numpy()
+    aux = [img for img in aux]
+    return np.asarray(aux)
+
+
 def replicate_images(images_df, rectangles_df):
     new_images_df = images_df.copy()
     for filename in rectangles_df.filenames.unique():
@@ -81,6 +87,27 @@ def to_four_points(rectangles):
         df.loc[len(df)] = new_row
 
     return df
+
+
+def to_four_points_ndarray(rectangles):
+    conv_rectangles = []
+    for rect in rectangles:
+        center_x, center_y, w, h, angle = rect
+        half_w = w / 2
+        half_h = h / 2
+        v1 = [half_w * np.cos(angle), half_w * np.sin(angle)]
+        v2 = [-half_h * np.sin(angle), half_h * np.cos(angle)]
+        p0 = np.asarray((center_x, center_y))
+        p1 = p0 - v1 - v2
+        p2 = p0 + v1 - v2
+        p3 = p0 + v1 + v2
+        p4 = p0 - v1 + v2
+        new_row = [np.round(p1).astype(int),
+                   np.round(p2).astype(int),
+                   np.round(p3).astype(int),
+                   np.round(p4).astype(int)]
+        conv_rectangles.append(new_row)
+    return conv_rectangles
 
 
 def to_five_dimensional(corner_points):
@@ -202,5 +229,5 @@ def split_train_test_data(images_df, rectangles_df):
 
 if __name__ == "__main__":
     # test_without_changes()
-    test()
-    # save_labels("../dataset", "../labels")
+    # test()
+    save_labels("../dataset", "../labels")
